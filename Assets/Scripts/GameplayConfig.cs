@@ -16,8 +16,10 @@ namespace Chillquarium.Gameplay
         [SerializeField] private RarityTier legendary = new();
         // No [Min] here: its Inspector drawer may edit the value as a float and lose the precision a double keeps.
         [SerializeField] private double startingMoney = 10d;
+        [SerializeField, Min(0.1f)] private float incomeIntervalSeconds = 1f;
 
         public double StartingMoney => startingMoney;
+        public float IncomeIntervalSeconds => incomeIntervalSeconds;
 
         public RarityTier GetTier(FishRarity rarity)
         {

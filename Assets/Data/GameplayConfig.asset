@@ -21,3 +21,4 @@ MonoBehaviour:
   legendary:
     displayColor: {r: 1, g: 0.84313726, b: 0.25882354, a: 1}
   startingMoney: 10
+  incomeIntervalSeconds: 1

@@ -11,8 +11,11 @@ namespace Chillquarium.Gameplay
         [SerializeField] private SpriteRenderer body;
         [SerializeField] private SpriteRenderer tail;
         [SerializeField, Range(0f, 1f)] private float tailShade = 0.15f;
+        // Temporary test switch until growth (roadmap step 7) decides when a fish becomes an adult.
+        [SerializeField] private bool isAdult;
 
         public FishSpecies Species => species;
+        public double IncomePerSecond => isAdult ? species.AdultIncomePerSecond : species.BabyIncomePerSecond;
 
         private void Start()
         {

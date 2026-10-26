@@ -1196,6 +1196,7 @@ MonoBehaviour:
   body: {fileID: 858861442}
   tail: {fileID: 1949842606}
   tailShade: 0.15
+  isAdult: 0
 --- !u!1 &1243598992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,6 +1426,54 @@ Transform:
   - {fileID: 1777906602}
   - {fileID: 1243598993}
   - {fileID: 1236636095}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1566867176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1566867178}
+  - component: {fileID: 1566867177}
+  m_Layer: 0
+  m_Name: Income
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1566867177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566867176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4bc38d1d943d497985eeedad30cf986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.FishIncome
+  gameplayConfig: {fileID: 11400000, guid: 980d9132cbbfc43568bc782652739600, type: 2}
+  wallet: {fileID: 1325317292}
+  fishes:
+  - {fileID: 1236636097}
+--- !u!4 &1566867178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566867176}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1777906601
@@ -1658,3 +1707,4 @@ SceneRoots:
   - {fileID: 1415896513}
   - {fileID: 1325317293}
   - {fileID: 1270696062}
+  - {fileID: 1566867178}
