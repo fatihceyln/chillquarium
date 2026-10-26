@@ -17,9 +17,12 @@ namespace Chillquarium.Gameplay
         // No [Min] here: its Inspector drawer may edit the value as a float and lose the precision a double keeps.
         [SerializeField] private double startingMoney = 10d;
         [SerializeField, Min(0.1f)] private float incomeIntervalSeconds = 1f;
+        [Tooltip("Seconds of growth a baby gains from eating one food pellet.")]
+        [SerializeField, Min(0f)] private float foodGrowthSeconds = 5f;
 
         public double StartingMoney => startingMoney;
         public float IncomeIntervalSeconds => incomeIntervalSeconds;
+        public float FoodGrowthSeconds => foodGrowthSeconds;
 
         public RarityTier GetTier(FishRarity rarity)
         {

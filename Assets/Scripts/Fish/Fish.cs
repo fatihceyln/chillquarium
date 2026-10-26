@@ -38,6 +38,12 @@ namespace Chillquarium.Gameplay
             ApplyGrowth();
         }
 
+        public void Feed(float growthSeconds)
+        {
+            ageSeconds += growthSeconds;
+            ApplyGrowth();
+        }
+
         private void ApplyGrowth()
         {
             // 0 for a newborn, 1 for an adult.

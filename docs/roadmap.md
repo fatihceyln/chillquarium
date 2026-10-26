@@ -15,7 +15,7 @@ Referans oyunun görsel stiliyle aynı. Tam pixel art değil: balık ve dekorlar
 - [x] **5. Para:** cüzdan ve ekranda görünen para göstergesi.
 - [x] **6. Idle gelir:** her balık belli aralıklarla kendiliğinden para üretir. Baby az, adult çok getirir.
 - [x] **7. Büyüme:** balık zamanla baby'den adult'a geçer, görünüşü ve boyu değişir.
-- [ ] **8. Besleme:** yem atılır, balıklar yemi yer ve daha hızlı büyür (referanstaki "feeding frenzy").
+- [x] **8. Besleme:** yem atılır, balıklar yemi yer ve daha hızlı büyür (referanstaki "feeding frenzy").
 - [ ] **9. Market:** tek balık kartı, fiyatı ve satın alma butonu.
 - [ ] **10. Kart açma:** nadirlik olasılıklarına göre rastgele bir balık çıkar. Basit bir açılış ekranından sonra balık baby olarak akvaryuma eklenir.
 - [ ] **11. Kayıt:** para, balıklar ve büyüme durumu saklanır. Oyun kapatılıp açılınca kaldığı yerden devam eder.

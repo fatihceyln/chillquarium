@@ -4,13 +4,21 @@ namespace Chillquarium.Gameplay
 {
     /// <summary>
     /// Swims back and forth inside the swim area: drifts to random heights and turns at the side edges.
+    /// A baby chases the nearest food pellet and eats it.
     /// </summary>
     public sealed class FishSwimmer : MonoBehaviour
     {
+        // Keeps the fish from flipping back and forth when food is right above or below it.
+        private const float TurnDeadZone = 0.05f;
+
+        [SerializeField] private Fish fish;
         [SerializeField] private SwimArea swimArea;
+        [SerializeField] private Feeder feeder;
         [SerializeField] private Transform visual;
         [SerializeField, Min(0.01f)] private float swimSpeed = 1.5f;
         [SerializeField, Min(0.01f)] private float driftSpeed = 0.4f;
+        [SerializeField, Min(0.01f)] private float chaseSpeed = 3f;
+        [SerializeField, Min(0.01f)] private float eatDistance = 0.25f;
 
         private float direction = 1f;
         private float targetHeight;
@@ -26,6 +34,18 @@ namespace Chillquarium.Gameplay
         }
 
         private void Update()
+        {
+            // Adults ignore food: it only speeds up growth.
+            if (!fish.IsAdult && feeder.TryGetNearestPellet(transform.position, out var pellet))
+            {
+                ChaseFood(pellet);
+                return;
+            }
+
+            Wander();
+        }
+
+        private void Wander()
         {
             var area = swimArea.Area;
             var position = transform.position;
@@ -45,6 +65,24 @@ namespace Chillquarium.Gameplay
             }
 
             transform.position = position;
+        }
+
+        private void ChaseFood(FoodPellet pellet)
+        {
+            var target = pellet.transform.position;
+            var horizontalGap = target.x - transform.position.x;
+
+            if (Mathf.Abs(horizontalGap) > TurnDeadZone && Mathf.Sign(horizontalGap) != direction)
+            {
+                Turn();
+            }
+
+            transform.position = Vector3.MoveTowards(transform.position, target, chaseSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, target) <= eatDistance)
+            {
+                feeder.Eat(pellet, fish);
+            }
         }
 
         private void Turn()

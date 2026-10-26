@@ -670,6 +670,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &717127883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 717127885}
+  - component: {fileID: 717127884}
+  m_Layer: 0
+  m_Name: Feeder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &717127884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717127883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6846068f675da43679d2a5e066a5b86a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.Feeder
+  gameplayConfig: {fileID: 11400000, guid: 980d9132cbbfc43568bc782652739600, type: 2}
+  worldCamera: {fileID: 519420031}
+  swimArea: {fileID: 1243598994}
+  pelletPrefab: {fileID: 1263829791668880733, guid: e35a8c8a0530e49bfa600fad858e24ed, type: 3}
+--- !u!4 &717127885
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717127883}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &858861440
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,10 +1224,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e764b3814c8247b08b770e9c58b2453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.FishSwimmer
+  fish: {fileID: 1236636097}
   swimArea: {fileID: 1243598994}
+  feeder: {fileID: 717127884}
   visual: {fileID: 232955965}
   swimSpeed: 1.5
   driftSpeed: 0.4
+  chaseSpeed: 3
+  eatDistance: 0.25
 --- !u!114 &1236636097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1711,3 +1763,4 @@ SceneRoots:
   - {fileID: 1325317293}
   - {fileID: 1270696062}
   - {fileID: 1566867178}
+  - {fileID: 717127885}
