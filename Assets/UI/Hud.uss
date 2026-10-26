@@ -1,7 +1,38 @@
-.money {
+.hidden {
+    display: none;
+}
+
+.top-bar {
     position: absolute;
     left: 16px;
     top: 12px;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.shop-button {
+    margin: 0 8px 0 0;
+    padding: 4px 16px;
+    border-width: 3px;
+    border-color: rgb(89, 186, 169);
+    border-radius: 12px;
+    background-color: rgb(150, 196, 185);
+    font-size: 36px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(11, 31, 42);
+}
+
+.shop-button:hover {
+    background-color: rgb(170, 214, 203);
+}
+
+.shop-button:active {
+    background-color: rgb(120, 170, 160);
+}
+
+.money {
     padding: 4px 16px;
     border-width: 3px;
     border-color: rgb(89, 186, 169);
@@ -17,4 +48,111 @@
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1.5px;
     -unity-text-outline-color: rgb(11, 31, 42);
+}
+
+.shop-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.shop-window {
+    width: 760px;
+    padding: 24px 24px 32px 24px;
+    align-items: center;
+    border-width: 3px;
+    border-color: rgb(87, 142, 172);
+    border-radius: 14px;
+    background-color: rgba(28, 54, 87, 0.92);
+}
+
+.shop-title {
+    margin: 0 0 20px 0;
+    font-size: 40px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+}
+
+.shop-close-button {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 52px;
+    height: 52px;
+    margin: 0;
+    padding: 0;
+    border-width: 2px;
+    border-color: rgb(30, 79, 63);
+    border-radius: 10px;
+    background-color: rgb(54, 126, 102);
+    font-size: 30px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+}
+
+.shop-close-button:hover {
+    background-color: rgb(70, 150, 124);
+}
+
+.card-section {
+    width: 420px;
+    padding: 20px;
+    align-items: center;
+    border-width: 2px;
+    border-color: rgb(87, 142, 172);
+    border-radius: 10px;
+    background-color: rgba(40, 80, 120, 0.5);
+}
+
+.card-name {
+    margin: 0;
+    font-size: 32px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+}
+
+.card-art {
+    width: 190px;
+    height: 220px;
+    margin: 16px 0;
+    border-width: 4px;
+    border-color: rgb(11, 22, 32);
+    border-radius: 18px;
+    background-color: rgb(35, 159, 221);
+}
+
+.card-buy-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.card-price {
+    margin: 0 8px 0 0;
+    font-size: 32px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+}
+
+.card-buy-button {
+    margin: 0;
+    padding: 2px 14px;
+    border-width: 2px;
+    border-color: rgb(30, 79, 63);
+    border-radius: 8px;
+    background-color: rgb(54, 126, 102);
+    font-size: 30px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+}
+
+.card-buy-button:hover {
+    background-color: rgb(70, 150, 124);
+}
+
+.card-buy-button:disabled {
+    opacity: 0.45;
 }

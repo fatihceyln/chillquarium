@@ -26,5 +26,17 @@ namespace Chillquarium.Gameplay
             balance += amount;
             BalanceChanged?.Invoke(balance);
         }
+
+        public bool TrySpend(double amount)
+        {
+            if (amount > balance)
+            {
+                return false;
+            }
+
+            balance -= amount;
+            BalanceChanged?.Invoke(balance);
+            return true;
+        }
     }
 }

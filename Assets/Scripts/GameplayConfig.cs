@@ -14,13 +14,15 @@ namespace Chillquarium.Gameplay
         [SerializeField] private RarityTier rare = new();
         [SerializeField] private RarityTier epic = new();
         [SerializeField] private RarityTier legendary = new();
-        // No [Min] here: its Inspector drawer may edit the value as a float and lose the precision a double keeps.
+        // Money values have no [Min]: its Inspector drawer may edit them as floats and lose the precision a double keeps.
         [SerializeField] private double startingMoney = 10d;
+        [SerializeField] private double cardPrice = 5d;
         [SerializeField, Min(0.1f)] private float incomeIntervalSeconds = 1f;
         [Tooltip("Seconds of growth a baby gains from eating one food pellet.")]
         [SerializeField, Min(0f)] private float foodGrowthSeconds = 5f;
 
         public double StartingMoney => startingMoney;
+        public double CardPrice => cardPrice;
         public float IncomeIntervalSeconds => incomeIntervalSeconds;
         public float FoodGrowthSeconds => foodGrowthSeconds;
 
