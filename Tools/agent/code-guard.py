@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Catch code patterns that AGENTS.md forbids.
+"""Catch code patterns that CLAUDE.md forbids.
 
 Usage:
   Tools/agent/code-guard.py                 Scan all game scripts and shaders.
@@ -156,7 +156,7 @@ def print_violations(violations, stream):
         print(f"    Fix: {fix}", file=stream)
 
     if violations:
-        print(f"code-guard: {len(violations)} violation(s). See AGENTS.md. "
+        print(f"code-guard: {len(violations)} violation(s). See CLAUDE.md. "
               f"If a line is a real exception, end it with `// {ALLOW_MARKER} <reason>`.", file=stream)
 
 
