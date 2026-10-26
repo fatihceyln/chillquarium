@@ -279,6 +279,12 @@ namespace Chillquarium.EditorTools
 
         private static IEnumerable<string> FindAssetPaths(string filter, string folder)
         {
+            // Folders are created when first needed; FindAssets logs a warning for a missing one.
+            if (!AssetDatabase.IsValidFolder(folder))
+            {
+                return Enumerable.Empty<string>();
+            }
+
             return AssetDatabase.FindAssets(filter, new[] { folder })
                 .Select(AssetDatabase.GUIDToAssetPath)
                 .OrderBy(path => path);
