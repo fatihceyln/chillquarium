@@ -24,6 +24,7 @@ namespace Chillquarium.Gameplay
         private FishSpecies species;
 
         public FishSpecies Species => species;
+        public float AgeSeconds => ageSeconds;
         public bool IsAdult => ageSeconds >= species.GrowthSeconds;
         public double IncomePerSecond => IsAdult ? species.AdultIncomePerSecond : species.BabyIncomePerSecond;
 
@@ -38,10 +39,10 @@ namespace Chillquarium.Gameplay
             ApplyGrowth();
         }
 
-        public void Initialize(FishSpecies species, SwimArea swimArea, Feeder feeder, int drawOrder)
+        public void Initialize(FishSpecies species, float ageSeconds, SwimArea swimArea, Feeder feeder, int drawOrder)
         {
             this.species = species;
-            ageSeconds = 0f;
+            this.ageSeconds = ageSeconds;
 
             // Each fish draws on its own layer, so overlapping fish do not mix their parts or flicker.
             sortingGroup.sortingOrder = drawOrder;

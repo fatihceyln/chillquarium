@@ -21,6 +21,12 @@ namespace Chillquarium.Gameplay
             balance = gameplayConfig.StartingMoney;
         }
 
+        public void RestoreBalance(double savedBalance)
+        {
+            balance = savedBalance;
+            BalanceChanged?.Invoke(balance);
+        }
+
         public void Add(double amount)
         {
             balance += amount;

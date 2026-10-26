@@ -1,33 +1,31 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Chillquarium.Gameplay
 {
     /// <summary>
-    /// Creates fish from the fish prefab and connects each one to the scene: swim area, feeder and income.
+    /// Creates fish from the fish prefab, connects each one to the scene (swim area, feeder)
+    /// and keeps the list of every fish in the tank.
     /// </summary>
     public sealed class FishSpawner : MonoBehaviour
     {
-        [SerializeField] private GameplayConfig gameplayConfig;
         [SerializeField] private Fish fishPrefab;
         [SerializeField] private SwimArea swimArea;
         [SerializeField] private Feeder feeder;
-        [SerializeField] private FishIncome income;
 
-        private int spawnedCount;
+        private readonly List<Fish> fishes = new();
 
-        private void Start()
-        {
-            Spawn(gameplayConfig.StarterSpecies);
-        }
+        public IReadOnlyList<Fish> Fishes => fishes;
 
-        public void Spawn(FishSpecies species)
+        public void Spawn(FishSpecies species, float ageSeconds = 0f)
         {
             var area = swimArea.Area;
             var position = new Vector3(Random.Range(area.xMin, area.xMax), Random.Range(area.yMin, area.yMax), 0f);
             var fish = Instantiate(fishPrefab, position, Quaternion.identity, transform);
-            fish.Initialize(species, swimArea, feeder, spawnedCount);
-            spawnedCount++;
-            income.Register(fish);
+
+            // The list length doubles as a unique draw order for the new fish.
+            fish.Initialize(species, ageSeconds, swimArea, feeder, fishes.Count);
+            fishes.Add(fish);
         }
     }
 }

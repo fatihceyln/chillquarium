@@ -1,17 +1,16 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Chillquarium.Gameplay
 {
     /// <summary>
-    /// Pays every fish's income into the wallet once per income interval.
+    /// Pays the income of every fish in the tank into the wallet once per income interval.
     /// </summary>
     public sealed class FishIncome : MonoBehaviour
     {
         [SerializeField] private GameplayConfig gameplayConfig;
         [SerializeField] private MoneyWallet wallet;
+        [SerializeField] private FishSpawner spawner;
 
-        private readonly List<Fish> fishes = new();
         private float timeSinceLastPayment;
 
         private void Update()
@@ -28,17 +27,12 @@ namespace Chillquarium.Gameplay
             timeSinceLastPayment -= interval;
             var total = 0d;
 
-            foreach (var fish in fishes)
+            foreach (var fish in spawner.Fishes)
             {
                 total += fish.IncomePerSecond * interval;
             }
 
             wallet.Add(total);
-        }
-
-        public void Register(Fish fish)
-        {
-            fishes.Add(fish);
         }
     }
 }
