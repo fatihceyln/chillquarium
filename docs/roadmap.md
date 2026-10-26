@@ -8,7 +8,7 @@ Referans oyunun görsel stiliyle aynı. Tam pixel art değil: balık ve dekorlar
 
 ## Yapılacaklar
 
-- [ ] **1. Akvaryum sahnesi:** kamera, arka plan ve balıkların yüzeceği alanın sınırları.
+- [x] **1. Akvaryum sahnesi:** kamera, arka plan ve balıkların yüzeceği alanın sınırları.
 - [ ] **2. İlk balık:** geçici bir balık görseli, akvaryumda rastgele yüzüyor ve kenara gelince dönüyor.
 - [ ] **3. Balık verisi:** her türün adı, görseli, nadirliği, baby ve adult gelirleri tek yerde tutulur. Başlangıçta 4–6 tür.
 - [ ] **4. Nadirlik:** common, rare, epic, legendary. Her birinin rengi ve gelir farkı olur.

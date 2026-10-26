@@ -5,7 +5,9 @@
 - Chillquarium: a 2D game built with Unity **6000.6.0f1**. Render pipeline: URP (2D Renderer, `UniversalRP` + `Renderer2D` in `Assets/Settings/`).
 - Target platform: macOS only (Standalone). Do not add mobile, console or other platform settings or assets.
 - The game is a learning demo of [Chillquarium](https://play.google.com/store/apps/details?id=com.snapbreak.chillquarium): fish from a market card earn money idly, grow from baby to adult, have rarities and can be fed. It uses the reference game's visual style. The step-by-step plan is in `docs/roadmap.md`. Describe the core loop, main scene and system wiring here as they are built.
-- Main scene: `Assets/Scenes/SampleScene.unity` (the only scene in the Build Profiles scene list).
+- Main scene: `Assets/Scenes/MainScene.unity` (the only scene in the Build Profiles scene list).
+- `Main Camera` is orthographic with size 5, so the view is always 10 units tall and its width follows the screen (16 units at 16:10, about 17.8 at 16:9). Keep gameplay content within x ±7.5 so it stays visible on 16:10 Mac screens.
+- `Aquarium` holds the tank: `Background` (placeholder color bands, 36 units wide with negative sorting orders so everything else draws on top) and `SwimArea` (the rectangle fish swim in).
 - Game scripts live in the `Chillquarium.Gameplay` namespace; editor tools live in `Chillquarium.EditorTools` under `Assets/Editor/`.
 
 ### Folder structure
@@ -15,6 +17,7 @@
 | `Assets/Scripts/<Feature>/` | Scripts grouped by feature |
 | `Assets/Data/` | The project's ScriptableObject assets |
 | `Assets/Prefabs/` | Prefabs |
+| `Assets/Sprites/` | Sprites; `Placeholder/` holds temporary shapes used until the Codex art arrives |
 | `Assets/Materials/`, `Assets/Shaders/` | Materials and shaders |
 | `Assets/Audio/` | Audio files |
 | `Assets/UI/` | UXML, USS, Panel Settings, fonts, themes and UI icons |
