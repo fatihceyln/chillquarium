@@ -10,13 +10,14 @@
 - `Aquarium` holds the tank: `Background` (placeholder color bands, 36 units wide with negative sorting orders so everything else draws on top) and `SwimArea` (the rectangle fish swim in; it bounds the fish center, so fish longer than about 1 unit need a narrower area).
 - `Aquarium/Fish` is the first fish, a scene object made of placeholder shapes under `Visual`. `FishSwimmer` moves the fish and flips `Visual` to face its direction. It becomes a prefab when fish are spawned (roadmap step 10), because a prefab asset cannot reference the scene's `SwimArea`.
 - Each fish species is a `FishSpecies` asset in `Assets/Data/Fish/` (name, `FishRarity`, placeholder color, baby and adult income per second). The `Fish` component on a fish points at its species and paints the placeholder body in `Start`.
+- `Assets/Data/GameplayConfig.asset` is the single config. It holds a `RarityTier` per rarity (UI display color). The income difference between rarities is in each species' income values.
 - Game scripts live in the `Chillquarium.Gameplay` namespace; editor tools live in `Chillquarium.EditorTools` under `Assets/Editor/`.
 
 ### Folder structure
 
 | Folder | Contents |
 |---|---|
-| `Assets/Scripts/<Feature>/` | Scripts grouped by feature |
+| `Assets/Scripts/<Feature>/` | Scripts grouped by feature; scripts shared by all features, like `GameplayConfig.cs`, sit directly in `Assets/Scripts/` |
 | `Assets/Data/` | The project's ScriptableObject assets |
 | `Assets/Prefabs/` | Prefabs |
 | `Assets/Sprites/` | Sprites; `Placeholder/` holds temporary shapes used until the Codex art arrives |
