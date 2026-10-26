@@ -1,13 +1,16 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Chillquarium.Gameplay
 {
     /// <summary>
     /// A fish in the tank. Grows from a small, pale baby into a full-size adult over its species' growth time.
+    /// Fish are spawned from a prefab, so FishSpawner hands each one its species and the scene objects it needs.
     /// </summary>
     public sealed class Fish : MonoBehaviour
     {
-        [SerializeField] private FishSpecies species;
+        [SerializeField] private FishSwimmer swimmer;
+        [SerializeField] private SortingGroup sortingGroup;
         [SerializeField] private Transform visual;
         [SerializeField] private SpriteRenderer body;
         [SerializeField] private SpriteRenderer tail;
@@ -15,17 +18,14 @@ namespace Chillquarium.Gameplay
         [SerializeField, Min(0.01f)] private float babySize = 0.5f;
         [Tooltip("How much lighter a newborn's placeholder color is than an adult's.")]
         [SerializeField, Range(0f, 1f)] private float babyPaleness = 0.4f;
-        [Tooltip("Seconds this fish has grown. Set it to the species' growth time or more to start as an adult.")]
+        [Tooltip("Seconds this fish has grown. Raise it during Play to fast-forward growth.")]
         [SerializeField, Min(0f)] private float ageSeconds;
+
+        private FishSpecies species;
 
         public FishSpecies Species => species;
         public bool IsAdult => ageSeconds >= species.GrowthSeconds;
         public double IncomePerSecond => IsAdult ? species.AdultIncomePerSecond : species.BabyIncomePerSecond;
-
-        private void Start()
-        {
-            ApplyGrowth();
-        }
 
         private void Update()
         {
@@ -35,6 +35,17 @@ namespace Chillquarium.Gameplay
             }
 
             ageSeconds += Time.deltaTime;
+            ApplyGrowth();
+        }
+
+        public void Initialize(FishSpecies species, SwimArea swimArea, Feeder feeder, int drawOrder)
+        {
+            this.species = species;
+            ageSeconds = 0f;
+
+            // Each fish draws on its own layer, so overlapping fish do not mix their parts or flicker.
+            sortingGroup.sortingOrder = drawOrder;
+            swimmer.Initialize(swimArea, feeder);
             ApplyGrowth();
         }
 

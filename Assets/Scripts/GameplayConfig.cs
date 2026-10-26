@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Chillquarium.Gameplay
@@ -14,6 +15,10 @@ namespace Chillquarium.Gameplay
         [SerializeField] private RarityTier rare = new();
         [SerializeField] private RarityTier epic = new();
         [SerializeField] private RarityTier legendary = new();
+        [Tooltip("The fish the tank starts with.")]
+        [SerializeField] private FishSpecies starterSpecies;
+        [Tooltip("The species the fish card can give.")]
+        [SerializeField] private List<FishSpecies> cardSpecies = new();
         // Money values have no [Min]: its Inspector drawer may edit them as floats and lose the precision a double keeps.
         [SerializeField] private double startingMoney = 10d;
         [SerializeField] private double cardPrice = 5d;
@@ -21,6 +26,8 @@ namespace Chillquarium.Gameplay
         [Tooltip("Seconds of growth a baby gains from eating one food pellet.")]
         [SerializeField, Min(0f)] private float foodGrowthSeconds = 5f;
 
+        public FishSpecies StarterSpecies => starterSpecies;
+        public IReadOnlyList<FishSpecies> CardSpecies => cardSpecies;
         public double StartingMoney => startingMoney;
         public double CardPrice => cardPrice;
         public float IncomeIntervalSeconds => incomeIntervalSeconds;

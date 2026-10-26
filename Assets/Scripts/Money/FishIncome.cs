@@ -10,8 +10,8 @@ namespace Chillquarium.Gameplay
     {
         [SerializeField] private GameplayConfig gameplayConfig;
         [SerializeField] private MoneyWallet wallet;
-        [SerializeField] private List<Fish> fishes = new();
 
+        private readonly List<Fish> fishes = new();
         private float timeSinceLastPayment;
 
         private void Update()
@@ -34,6 +34,11 @@ namespace Chillquarium.Gameplay
             }
 
             wallet.Add(total);
+        }
+
+        public void Register(Fish fish)
+        {
+            fishes.Add(fish);
         }
     }
 }

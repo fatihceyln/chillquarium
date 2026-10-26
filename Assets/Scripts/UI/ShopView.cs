@@ -12,6 +12,7 @@ namespace Chillquarium.Gameplay
         [SerializeField] private MoneyWallet wallet;
         [SerializeField] private GameplayConfig gameplayConfig;
         [SerializeField] private Feeder feeder;
+        [SerializeField] private CardRevealView cardRevealView;
         [SerializeField] private string shopButtonName = "shop-button";
         [SerializeField] private string shopPanelName = "shop-panel";
         [SerializeField] private string shopCloseButtonName = "shop-close-button";
@@ -67,7 +68,14 @@ namespace Chillquarium.Gameplay
 
         private void BuyCard()
         {
-            wallet.TrySpend(gameplayConfig.CardPrice);
+            if (!wallet.TrySpend(gameplayConfig.CardPrice))
+            {
+                return;
+            }
+
+            // Close first: the reveal turns the feeder off again, and only its confirm button turns it back on.
+            Close();
+            cardRevealView.Show(CardRoll.PickSpecies(gameplayConfig));
         }
 
         private void UpdateBuyButton(double balance)

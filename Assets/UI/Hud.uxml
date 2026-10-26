@@ -20,4 +20,15 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="reveal-panel" class="reveal-overlay hidden">
+        <ui:VisualElement class="reveal-window">
+            <ui:Label text="New fish!" class="reveal-title" />
+            <ui:Label name="reveal-fish-name-label" text="Fish" class="reveal-fish-name" />
+            <ui:Label name="reveal-rarity-label" text="Common" class="reveal-rarity" />
+            <ui:VisualElement class="reveal-art-box">
+                <ui:VisualElement name="reveal-fish-art" class="reveal-fish-art" />
+            </ui:VisualElement>
+            <ui:Button name="reveal-confirm-button" text="Awesome!" class="reveal-confirm-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

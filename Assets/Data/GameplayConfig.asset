@@ -14,12 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.GameplayConfig
   common:
     displayColor: {r: 0.99607843, g: 0.9882353, b: 1, a: 1}
+    dropWeight: 70
   rare:
     displayColor: {r: 0.078431375, g: 0.45490196, b: 1, a: 1}
+    dropWeight: 22
   epic:
     displayColor: {r: 0.64705884, g: 0.35686275, b: 1, a: 1}
+    dropWeight: 7
   legendary:
     displayColor: {r: 1, g: 0.84313726, b: 0.25882354, a: 1}
+    dropWeight: 1
+  starterSpecies: {fileID: 11400000, guid: d6d21e1f8e04d4909a13b4c1d5afcbdc, type: 2}
+  cardSpecies:
+  - {fileID: 11400000, guid: d6d21e1f8e04d4909a13b4c1d5afcbdc, type: 2}
+  - {fileID: 11400000, guid: b4e046eb94a4b41bf8decf33d6f36843, type: 2}
+  - {fileID: 11400000, guid: 403d5286533184334bbb4bc695792df5, type: 2}
+  - {fileID: 11400000, guid: 3c3877efbf1824291ba88a1e38697ab3, type: 2}
+  - {fileID: 11400000, guid: 17f0f1e262c5b456dbea79ff9a549e49, type: 2}
   startingMoney: 10
   cardPrice: 5
   incomeIntervalSeconds: 1

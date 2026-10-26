@@ -12,14 +12,14 @@ namespace Chillquarium.Gameplay
         private const float TurnDeadZone = 0.05f;
 
         [SerializeField] private Fish fish;
-        [SerializeField] private SwimArea swimArea;
-        [SerializeField] private Feeder feeder;
         [SerializeField] private Transform visual;
         [SerializeField, Min(0.01f)] private float swimSpeed = 1.5f;
         [SerializeField, Min(0.01f)] private float driftSpeed = 0.4f;
         [SerializeField, Min(0.01f)] private float chaseSpeed = 3f;
         [SerializeField, Min(0.01f)] private float eatDistance = 0.25f;
 
+        private SwimArea swimArea;
+        private Feeder feeder;
         private float direction = 1f;
         private float targetHeight;
 
@@ -43,6 +43,12 @@ namespace Chillquarium.Gameplay
             }
 
             Wander();
+        }
+
+        public void Initialize(SwimArea swimArea, Feeder feeder)
+        {
+            this.swimArea = swimArea;
+            this.feeder = feeder;
         }
 
         private void Wander()
