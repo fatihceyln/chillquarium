@@ -205,7 +205,7 @@ def file_hash(path):
 
 
 def run_eval(code, quiet=False, timeout=15):
-    response = run_unity("eval", code, quiet=quiet, timeout=timeout)
+    response = run_unity("script", "eval", code, quiet=quiet, timeout=timeout)
     return None if response is None else response.get("result")
 
 
