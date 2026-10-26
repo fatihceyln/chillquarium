@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <Style src="Hud.uss" />
+    <ui:VisualElement name="money" class="money">
+        <ui:Label name="money-label" text="$0.00" class="money-label" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,20 @@
+.money {
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    padding: 4px 16px;
+    border-width: 3px;
+    border-color: rgb(89, 186, 169);
+    border-radius: 12px;
+    background-color: rgb(79, 138, 163);
+}
+
+.money-label {
+    margin: 0;
+    padding: 0;
+    font-size: 36px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(11, 31, 42);
+}

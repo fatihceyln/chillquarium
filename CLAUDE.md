@@ -10,7 +10,9 @@
 - `Aquarium` holds the tank: `Background` (placeholder color bands, 36 units wide with negative sorting orders so everything else draws on top) and `SwimArea` (the rectangle fish swim in; it bounds the fish center, so fish longer than about 1 unit need a narrower area).
 - `Aquarium/Fish` is the first fish, a scene object made of placeholder shapes under `Visual`. `FishSwimmer` moves the fish and flips `Visual` to face its direction. It becomes a prefab when fish are spawned (roadmap step 10), because a prefab asset cannot reference the scene's `SwimArea`.
 - Each fish species is a `FishSpecies` asset in `Assets/Data/Fish/` (name, `FishRarity`, placeholder color, baby and adult income per second). The `Fish` component on a fish points at its species and paints the placeholder body in `Start`.
-- `Assets/Data/GameplayConfig.asset` is the single config. It holds a `RarityTier` per rarity (UI display color). The income difference between rarities is in each species' income values.
+- `Assets/Data/GameplayConfig.asset` is the single config. It holds a `RarityTier` per rarity (UI display color) and the starting money. The income difference between rarities is in each species' income values.
+- `Wallet` (`MoneyWallet`) holds the money as a `double`, because balances reach the trillions. Code adds money with `Add`, which raises `BalanceChanged`. `MoneyFormat` writes amounts like the reference game: `$12,500.00` below a million, `$72.556T` above.
+- `Hud` is the screen UI: a `PanelRenderer` with `Assets/UI/Hud.uxml` (structure), `Hud.uss` (style) and `HudPanelSettings.asset` (scales with screen height from 1920×1080). Views that read the UI, like `MoneyView`, sit on the `Hud` object so the project validator checks their element names against the UXML.
 - Game scripts live in the `Chillquarium.Gameplay` namespace; editor tools live in `Chillquarium.EditorTools` under `Assets/Editor/`.
 
 ### Folder structure
