@@ -7,7 +7,8 @@
 - The game is a learning demo of [Chillquarium](https://play.google.com/store/apps/details?id=com.snapbreak.chillquarium): fish from a market card earn money idly, grow from baby to adult, have rarities and can be fed. It uses the reference game's visual style. The step-by-step plan is in `docs/roadmap.md`. Describe the core loop, main scene and system wiring here as they are built.
 - Main scene: `Assets/Scenes/MainScene.unity` (the only scene in the Build Profiles scene list).
 - `Main Camera` is orthographic with size 5, so the view is always 10 units tall and its width follows the screen (16 units at 16:10, about 17.8 at 16:9). Keep gameplay content within x ±7.5 so it stays visible on 16:10 Mac screens.
-- `Aquarium` holds the tank: `Background` (placeholder color bands, 36 units wide with negative sorting orders so everything else draws on top) and `SwimArea` (the rectangle fish swim in).
+- `Aquarium` holds the tank: `Background` (placeholder color bands, 36 units wide with negative sorting orders so everything else draws on top) and `SwimArea` (the rectangle fish swim in; it bounds the fish center, so fish longer than about 1 unit need a narrower area).
+- `Aquarium/Fish` is the first fish, a scene object made of placeholder shapes under `Visual`. `FishSwimmer` moves the fish and flips `Visual` to face its direction. It becomes a prefab when fish are spawned (roadmap step 10), because a prefab asset cannot reference the scene's `SwimArea`.
 - Game scripts live in the `Chillquarium.Gameplay` namespace; editor tools live in `Chillquarium.EditorTools` under `Assets/Editor/`.
 
 ### Folder structure
