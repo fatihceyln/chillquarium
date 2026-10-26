@@ -4,7 +4,7 @@
 
 - Chillquarium: a 2D game built with Unity **6000.6.0f1**. Render pipeline: URP (2D Renderer, `UniversalRP` + `Renderer2D` in `Assets/Settings/`).
 - Target platform: macOS only (Standalone). Do not add mobile, console or other platform settings or assets.
-- The game design is not defined yet. When it is, describe the core loop, main scene and system wiring here.
+- The game is a learning demo of [Chillquarium](https://play.google.com/store/apps/details?id=com.snapbreak.chillquarium): fish from a market card earn money idly, grow from baby to adult, have rarities and can be fed. It uses the reference game's visual style. The step-by-step plan is in `docs/roadmap.md`. Describe the core loop, main scene and system wiring here as they are built.
 - Main scene: `Assets/Scenes/SampleScene.unity` (the only scene in the Build Profiles scene list).
 - Game scripts live in the `Chillquarium.Gameplay` namespace; editor tools live in `Chillquarium.EditorTools` under `Assets/Editor/`.
 
@@ -22,6 +22,7 @@
 | `Assets/Settings/` | Unity/URP project settings assets only; game data does not go here |
 | `Assets/Editor/` | Editor-only tools, not included in builds (e.g. `ProjectValidator.cs`) |
 | `Tools/agent/` | Helper scripts for agents (outside `Assets/`, so Unity does not import them) |
+| `docs/` | Project documents, e.g. `roadmap.md` (outside `Assets/`). `docs/references/` holds screenshots of the reference game for style |
 
 - Put a new script in the matching feature folder; if none fits, create a new feature folder.
 
@@ -60,6 +61,7 @@
 
 ## Visuals and shaders
 
+- All art (sprites, backgrounds, UI images) is generated in-house with the Codex CLI in the reference game's style. Do not import third-party asset packs.
 - The project uses URP. New shaders are written in HLSL for URP (`HLSLPROGRAM`, `"RenderPipeline" = "UniversalPipeline"`, URP `Core.hlsl`). Do not use the built-in pipeline's `CGPROGRAM` / `UnityCG.cginc`.
 - Use `MaterialPropertyBlock` to give objects that share a material different per-object colors or values. Do not create material copies through `renderer.material` for this.
 
