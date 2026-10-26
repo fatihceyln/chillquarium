@@ -17,3 +17,4 @@ MonoBehaviour:
   placeholderColor: {r: 0.9490196, g: 0.54901963, b: 0.15686275, a: 1}
   babyIncomePerSecond: 1
   adultIncomePerSecond: 4
+  growthSeconds: 30

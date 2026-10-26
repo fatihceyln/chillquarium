@@ -14,11 +14,14 @@ namespace Chillquarium.Gameplay
         [SerializeField] private Color placeholderColor = Color.white;
         [SerializeField, Min(0f)] private float babyIncomePerSecond = 1f;
         [SerializeField, Min(0f)] private float adultIncomePerSecond = 4f;
+        [Tooltip("Seconds a baby needs to become an adult.")]
+        [SerializeField, Min(1f)] private float growthSeconds = 60f;
 
         public string DisplayName => displayName;
         public FishRarity Rarity => rarity;
         public Color PlaceholderColor => placeholderColor;
         public float BabyIncomePerSecond => babyIncomePerSecond;
         public float AdultIncomePerSecond => adultIncomePerSecond;
+        public float GrowthSeconds => growthSeconds;
     }
 }

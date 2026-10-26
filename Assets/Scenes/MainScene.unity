@@ -1193,10 +1193,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.Fish
   species: {fileID: 11400000, guid: d6d21e1f8e04d4909a13b4c1d5afcbdc, type: 2}
+  visual: {fileID: 232955965}
   body: {fileID: 858861442}
   tail: {fileID: 1949842606}
   tailShade: 0.15
-  isAdult: 0
+  babySize: 0.5
+  babyPaleness: 0.4
+  ageSeconds: 0
 --- !u!1 &1243598992
 GameObject:
   m_ObjectHideFlags: 0
