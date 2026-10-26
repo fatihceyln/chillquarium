@@ -1140,6 +1140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1236636095}
   - component: {fileID: 1236636096}
+  - component: {fileID: 1236636097}
   m_Layer: 0
   m_Name: Fish
   m_TagString: Untagged
@@ -1179,6 +1180,22 @@ MonoBehaviour:
   visual: {fileID: 232955965}
   swimSpeed: 1.5
   driftSpeed: 0.4
+--- !u!114 &1236636097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236636094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e4a9d2bd09c4ce0b3c7804bafbf3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.Fish
+  species: {fileID: 11400000, guid: d6d21e1f8e04d4909a13b4c1d5afcbdc, type: 2}
+  body: {fileID: 858861442}
+  tail: {fileID: 1949842606}
+  tailShade: 0.15
 --- !u!1 &1243598992
 GameObject:
   m_ObjectHideFlags: 0

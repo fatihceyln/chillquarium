@@ -9,6 +9,7 @@
 - `Main Camera` is orthographic with size 5, so the view is always 10 units tall and its width follows the screen (16 units at 16:10, about 17.8 at 16:9). Keep gameplay content within x ±7.5 so it stays visible on 16:10 Mac screens.
 - `Aquarium` holds the tank: `Background` (placeholder color bands, 36 units wide with negative sorting orders so everything else draws on top) and `SwimArea` (the rectangle fish swim in; it bounds the fish center, so fish longer than about 1 unit need a narrower area).
 - `Aquarium/Fish` is the first fish, a scene object made of placeholder shapes under `Visual`. `FishSwimmer` moves the fish and flips `Visual` to face its direction. It becomes a prefab when fish are spawned (roadmap step 10), because a prefab asset cannot reference the scene's `SwimArea`.
+- Each fish species is a `FishSpecies` asset in `Assets/Data/Fish/` (name, `FishRarity`, placeholder color, baby and adult income per second). The `Fish` component on a fish points at its species and paints the placeholder body in `Start`.
 - Game scripts live in the `Chillquarium.Gameplay` namespace; editor tools live in `Chillquarium.EditorTools` under `Assets/Editor/`.
 
 ### Folder structure
@@ -116,7 +117,7 @@
 - Classes are `sealed` unless they are meant to be inherited.
 - In MonoBehaviours and ScriptableObjects, Inspector fields are `[SerializeField] private` and named in camelCase without a `_` prefix (e.g. `swimSpeed`). Expose them to other classes through properties when needed, not public fields.
 - Gameplay tuning values (speed, duration, volume, counts, etc.) are not hard-coded constants; they are serialized Inspector fields so the user can tune the game without code.
-- Keep game balance values in a single config ScriptableObject under `Assets/Data/` instead of spreading them across components. Visual and audio tuning stays on the component that uses it.
+- Keep game balance values in a single config ScriptableObject under `Assets/Data/` instead of spreading them across components. Values that belong to one fish species (rarity, income) live on that species' `FishSpecies` asset. Visual and audio tuning stays on the component that uses it.
 - Limit tuning fields with `[Min]` or `[Range]` (e.g. `[SerializeField, Min(0.01f)]`, `[SerializeField, Range(0f, 1f)]`).
 - Comments are in English and explain why, not what. Only comment where the reason is not obvious from the code.
 
