@@ -20,7 +20,11 @@ namespace Chillquarium.Gameplay
         public void Spawn(FishSpecies species, float xp = 0f)
         {
             var area = swimArea.Area;
-            var position = new Vector3(Random.Range(area.xMin, area.xMax), Random.Range(area.yMin, area.yMax), 0f);
+            Spawn(species, xp, new Vector3(Random.Range(area.xMin, area.xMax), Random.Range(area.yMin, area.yMax), 0f));
+        }
+
+        public void Spawn(FishSpecies species, float xp, Vector3 position)
+        {
             var fish = Instantiate(fishPrefab, position, Quaternion.identity, transform);
 
             // The list length doubles as a unique draw order for the new fish.
