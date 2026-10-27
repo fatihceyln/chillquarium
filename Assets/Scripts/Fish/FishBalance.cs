@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Chillquarium.Gameplay
 {
     /// <summary>
-    /// One species' balance values: how much it earns and how long it takes to grow up.
+    /// One species' balance values: how much it earns and how much XP it needs to grow up.
     /// </summary>
     [Serializable]
     public sealed class FishBalance
@@ -12,12 +12,12 @@ namespace Chillquarium.Gameplay
         [SerializeField] private FishSpecies species;
         [SerializeField, Min(0f)] private float babyIncomePerSecond = 1f;
         [SerializeField, Min(0f)] private float adultIncomePerSecond = 4f;
-        [Tooltip("Seconds a baby needs to become an adult.")]
-        [SerializeField, Min(1f)] private float growthSeconds = 60f;
+        [Tooltip("XP a baby needs to become an adult.")]
+        [SerializeField, Min(1f)] private float adultXp = 60f;
 
         public FishSpecies Species => species;
         public float BabyIncomePerSecond => babyIncomePerSecond;
         public float AdultIncomePerSecond => adultIncomePerSecond;
-        public float GrowthSeconds => growthSeconds;
+        public float AdultXp => adultXp;
     }
 }

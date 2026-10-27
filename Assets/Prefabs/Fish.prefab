@@ -80,7 +80,7 @@ MonoBehaviour:
   visual: {fileID: 173645547126207721}
   spriteRenderer: {fileID: 3744777128912374516}
   babySize: 0.5
-  ageSeconds: 0
+  xp: 0
 --- !u!210 &5363759480697325423
 SortingGroup:
   m_ObjectHideFlags: 0

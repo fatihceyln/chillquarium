@@ -16,6 +16,6 @@ namespace Chillquarium.Gameplay
     {
         // The species asset's file name, e.g. "NeonTetra". Renaming the asset loses saved fish of that species.
         public string species;
-        public float ageSeconds;
+        public float xp;
     }
 }

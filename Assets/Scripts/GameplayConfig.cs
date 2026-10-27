@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Chillquarium.Gameplay
 {
     /// <summary>
-    /// Every balance value of the game in one place: prices, incomes, growth times and rarity odds.
+    /// Every balance value of the game in one place: prices, incomes, growth XP and rarity odds.
     /// </summary>
     [CreateAssetMenu(fileName = "GameplayConfig", menuName = "Chillquarium/Gameplay Config")]
     public sealed class GameplayConfig : ScriptableObject
@@ -17,8 +17,8 @@ namespace Chillquarium.Gameplay
         [SerializeField, Min(0.1f)] private float incomeIntervalSeconds = 1f;
 
         [Header("Food")]
-        [Tooltip("Seconds of growth a baby gains from eating one food pellet.")]
-        [SerializeField, Min(0f)] private float foodGrowthSeconds = 5f;
+        [Tooltip("XP a baby gains from eating one food pellet.")]
+        [SerializeField, Min(0f)] private float foodXp = 5f;
 
         [Header("Rarities")]
         [SerializeField] private RarityTier common = new();
@@ -29,14 +29,17 @@ namespace Chillquarium.Gameplay
         [Header("Fish")]
         [Tooltip("The fish the tank starts with. It must be in the list below.")]
         [SerializeField] private FishSpecies starterSpecies;
+        [Tooltip("XP every baby gains each second on its own.")]
+        [SerializeField, Min(0f)] private float xpPerSecond = 1f;
         [Tooltip("Every species in the game with its balance values. The fish card gives these species.")]
         [SerializeField] private List<FishBalance> fishes = new();
 
         public double StartingMoney => startingMoney;
         public double CardPrice => cardPrice;
         public float IncomeIntervalSeconds => incomeIntervalSeconds;
-        public float FoodGrowthSeconds => foodGrowthSeconds;
+        public float FoodXp => foodXp;
         public FishSpecies StarterSpecies => starterSpecies;
+        public float XpPerSecond => xpPerSecond;
         public IReadOnlyList<FishBalance> Fishes => fishes;
 
         public RarityTier GetTier(FishRarity rarity)

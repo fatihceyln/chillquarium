@@ -4,8 +4,8 @@ using UnityEngine.Rendering;
 namespace Chillquarium.Gameplay
 {
     /// <summary>
-    /// A fish in the tank. Grows from a small baby into a full-size adult over its species' growth time,
-    /// then switches from the species' baby sprite to its adult sprite.
+    /// A fish in the tank. Earns XP over time and from food, and grows from a small baby into a full-size adult
+    /// as its XP reaches its species' adult XP, then switches from the species' baby sprite to its adult sprite.
     /// Fish are spawned from a prefab, so FishSpawner hands each one its species and the scene objects it needs.
     /// </summary>
     public sealed class Fish : MonoBehaviour
@@ -16,14 +16,14 @@ namespace Chillquarium.Gameplay
         [SerializeField] private Transform visual;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField, Min(0.01f)] private float babySize = 0.5f;
-        [Tooltip("Seconds this fish has grown. Raise it during Play to fast-forward growth.")]
-        [SerializeField, Min(0f)] private float ageSeconds;
+        [Tooltip("XP this fish has earned. Raise it during Play to fast-forward growth.")]
+        [SerializeField, Min(0f)] private float xp;
 
         private FishSpecies species;
 
         public FishSpecies Species => species;
-        public float AgeSeconds => ageSeconds;
-        public bool IsAdult => ageSeconds >= Balance.GrowthSeconds;
+        public float Xp => xp;
+        public bool IsAdult => xp >= Balance.AdultXp;
         public double IncomePerSecond => IsAdult ? Balance.AdultIncomePerSecond : Balance.BabyIncomePerSecond;
 
         // Looked up on every use, so balance edits in GameplayConfig apply to fish already in the tank.
@@ -36,14 +36,14 @@ namespace Chillquarium.Gameplay
                 return;
             }
 
-            ageSeconds += Time.deltaTime;
+            xp += gameplayConfig.XpPerSecond * Time.deltaTime;
             ApplyGrowth();
         }
 
-        public void Initialize(FishSpecies species, float ageSeconds, SwimArea swimArea, Feeder feeder, int drawOrder)
+        public void Initialize(FishSpecies species, float xp, SwimArea swimArea, Feeder feeder, int drawOrder)
         {
             this.species = species;
-            this.ageSeconds = ageSeconds;
+            this.xp = xp;
 
             // Each fish draws on its own layer, so overlapping fish do not mix their parts or flicker.
             sortingGroup.sortingOrder = drawOrder;
@@ -51,16 +51,16 @@ namespace Chillquarium.Gameplay
             ApplyGrowth();
         }
 
-        public void Feed(float growthSeconds)
+        public void Feed(float foodXp)
         {
-            ageSeconds += growthSeconds;
+            xp += foodXp;
             ApplyGrowth();
         }
 
         private void ApplyGrowth()
         {
             // 0 for a newborn, 1 for an adult.
-            var growth = Mathf.Clamp01(ageSeconds / Balance.GrowthSeconds);
+            var growth = Mathf.Clamp01(xp / Balance.AdultXp);
             var size = Mathf.Lerp(babySize, 1f, growth);
 
             // Keep the sign of x: FishSwimmer flips it to face the swim direction.

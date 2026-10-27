@@ -59,7 +59,7 @@ namespace Chillquarium.Gameplay
 
             foreach (var fish in spawner.Fishes)
             {
-                data.fishes.Add(new FishSaveData { species = fish.Species.name, ageSeconds = fish.AgeSeconds });
+                data.fishes.Add(new FishSaveData { species = fish.Species.name, xp = fish.Xp });
             }
 
             return data;
@@ -73,7 +73,7 @@ namespace Chillquarium.Gameplay
             {
                 if (TryFindSpecies(savedFish.species, out var species))
                 {
-                    spawner.Spawn(species, savedFish.ageSeconds);
+                    spawner.Spawn(species, savedFish.xp);
                 }
                 else
                 {

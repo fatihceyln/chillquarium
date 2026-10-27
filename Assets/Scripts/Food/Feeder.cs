@@ -52,7 +52,7 @@ namespace Chillquarium.Gameplay
         {
             pellets.Remove(pellet);
             Destroy(pellet.gameObject);
-            fish.Feed(gameplayConfig.FoodGrowthSeconds);
+            fish.Feed(gameplayConfig.FoodXp);
             soundSource.PlayOneShot(eatSound);
         }
 
