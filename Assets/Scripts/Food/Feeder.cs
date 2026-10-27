@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 namespace Chillquarium.Gameplay
 {
@@ -11,6 +12,7 @@ namespace Chillquarium.Gameplay
     {
         [SerializeField] private GameplayConfig gameplayConfig;
         [SerializeField] private Camera worldCamera;
+        [SerializeField] private PanelRenderer hudPanelRenderer;
         [SerializeField] private SwimArea swimArea;
         [SerializeField] private FoodPellet pelletPrefab;
         [SerializeField] private AudioSource soundSource;
@@ -18,15 +20,27 @@ namespace Chillquarium.Gameplay
         [SerializeField] private AudioClip eatSound;
 
         private readonly List<FoodPellet> pellets = new();
+        private VisualElement hudRoot;
+
+        // Awake rather than OnEnable: windows switch the feeder off and on, and the HUD root must survive that.
+        private void Awake()
+        {
+            hudPanelRenderer.RegisterUIReloadCallback(HandleHudReloaded);
+        }
 
         private void Update()
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame)
+            if (Mouse.current.leftButton.wasPressedThisFrame && !IsOverHud(Mouse.current.position.ReadValue()))
             {
                 // Vector2 drops the camera's z, so the pellet sits at z = 0 with the fish instead of on the camera plane.
                 Vector2 clickPoint = worldCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 DropPellet(clickPoint);
             }
+        }
+
+        private void OnDestroy()
+        {
+            hudPanelRenderer.UnregisterUIReloadCallback(HandleHudReloaded);
         }
 
         public bool TryGetNearestPellet(Vector3 position, out FoodPellet nearest)
@@ -54,6 +68,22 @@ namespace Chillquarium.Gameplay
             Destroy(pellet.gameObject);
             fish.Feed(gameplayConfig.FoodXp);
             soundSource.PlayOneShot(eatSound);
+        }
+
+        private void HandleHudReloaded(PanelRenderer renderer, VisualElement rootElement, int version)
+        {
+            hudRoot = rootElement;
+        }
+
+        // Clicks on HUD elements over the water, like the fish cards, must not drop food.
+        private bool IsOverHud(Vector2 screenPosition)
+        {
+            // Input System y counts up from the bottom; panel y counts down from the top.
+            var panelPosition = RuntimePanelUtils.ScreenToPanel(hudRoot.panel, new Vector2(screenPosition.x, Screen.height - screenPosition.y));
+            var picked = hudRoot.panel.Pick(panelPosition);
+
+            // Full-screen layers ignore picking, so only a real element under the pointer counts.
+            return picked != null && picked != hudRoot && hudRoot.Contains(picked);
         }
 
         private void DropPellet(Vector2 point)
