@@ -268,8 +268,10 @@
     translate: 0 60px;
 }
 
+/* Narrower and a little taller, like a squashed card keeping its volume; the ease-out-back on the way back
+   overshoots both ways, so the card springs wider and shorter for a moment before it settles. */
 .card-row > .fish-card.fish-card--squeeze {
-    scale: 0.85 1;
+    scale: 0.7 1.08;
 }
 
 .card-row > .fish-card.fish-card--collect {
