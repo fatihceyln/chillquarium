@@ -20,11 +20,11 @@ namespace Chillquarium.Gameplay
         public void Spawn(FishSpecies species, float xp = 0f)
         {
             var area = swimArea.Area;
-            Spawn(species, xp, new Vector3(Random.Range(area.xMin, area.xMax), Random.Range(area.yMin, area.yMax), 0f));
+            Spawn(species, new Vector3(Random.Range(area.xMin, area.xMax), Random.Range(area.yMin, area.yMax), 0f), xp);
         }
 
         // The position is kept inside the swim area, so a fish never starts out of the water.
-        public void Spawn(FishSpecies species, float xp, Vector3 position)
+        public void Spawn(FishSpecies species, Vector3 position, float xp = 0f)
         {
             var area = swimArea.Area;
             position = new Vector3(Mathf.Clamp(position.x, area.xMin, area.xMax), Mathf.Clamp(position.y, area.yMin, area.yMax), 0f);

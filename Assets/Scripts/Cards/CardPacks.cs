@@ -61,7 +61,7 @@ namespace Chillquarium.Gameplay
         public void Collect(FishSpecies species, Vector3 position)
         {
             unclaimedSpecies.Remove(species);
-            spawner.Spawn(species, 0f, position);
+            spawner.Spawn(species, position);
         }
     }
 }
