@@ -24,9 +24,9 @@ namespace Chillquarium.Gameplay
         // Fish whose cards are laid out but not collected yet. The save keeps them as tank fish so they are not lost.
         public IReadOnlyList<FishSpecies> UnclaimedSpecies => unclaimedSpecies;
 
-        public void AddPack()
+        public void AddPacks(int count)
         {
-            packCount++;
+            packCount += count;
             PackCountChanged?.Invoke();
         }
 

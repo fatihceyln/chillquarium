@@ -821,6 +821,9 @@ MonoBehaviour:
   cardArtName: card-art
   cardPriceLabelName: card-price-label
   cardBuyButtonName: card-buy-button
+  cardBulkPriceLabelName: card-bulk-price-label
+  cardBulkBuyButtonName: card-bulk-buy-button
+  bulkBuyCount: 5
   hiddenClassName: hidden
 --- !u!114 &1270696064
 MonoBehaviour:

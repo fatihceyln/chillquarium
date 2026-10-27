@@ -23,6 +23,10 @@
                     <ui:Label name="card-price-label" text="$0.00" class="card-price" />
                     <ui:Button name="card-buy-button" text="Buy" class="card-buy-button" />
                 </ui:VisualElement>
+                <ui:VisualElement class="card-buy-row card-bulk-buy-row">
+                    <ui:Label name="card-bulk-price-label" text="$0.00" class="card-price" />
+                    <ui:Button name="card-bulk-buy-button" text="Buy x5" class="card-buy-button" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

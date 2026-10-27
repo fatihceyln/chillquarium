@@ -154,6 +154,10 @@
     align-items: center;
 }
 
+.card-bulk-buy-row {
+    margin-top: 10px;
+}
+
 .card-price {
     margin: 0 8px 0 0;
     font-size: 32px;

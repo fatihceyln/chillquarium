@@ -4,7 +4,8 @@ using UnityEngine.UIElements;
 namespace Chillquarium.Gameplay
 {
     /// <summary>
-    /// The shop window: opens from the Shop button and sells the fish card, which then waits as a pack in the tank.
+    /// The shop window: opens from the Shop button and sells the fish card, one at a time or several at once;
+    /// bought cards wait as a pack in the tank.
     /// </summary>
     public sealed class ShopView : MonoBehaviour
     {
@@ -19,12 +20,19 @@ namespace Chillquarium.Gameplay
         [SerializeField] private string cardArtName = "card-art";
         [SerializeField] private string cardPriceLabelName = "card-price-label";
         [SerializeField] private string cardBuyButtonName = "card-buy-button";
+        [SerializeField] private string cardBulkPriceLabelName = "card-bulk-price-label";
+        [SerializeField] private string cardBulkBuyButtonName = "card-bulk-buy-button";
+        [Tooltip("How many cards the second Buy button buys at once, each at the normal card price.")]
+        [SerializeField, Min(2)] private int bulkBuyCount = 5;
         [SerializeField] private string hiddenClassName = "hidden";
 
         private VisualElement shopPanel;
         private Button shopButton;
         private Button shopCloseButton;
         private Button cardBuyButton;
+        private Button cardBulkBuyButton;
+
+        private double BulkPrice => gameplayConfig.CardPrice * bulkBuyCount;
 
         private void OnEnable()
         {
@@ -44,9 +52,12 @@ namespace Chillquarium.Gameplay
             shopButton = rootElement.Q<Button>(shopButtonName);
             shopCloseButton = rootElement.Q<Button>(shopCloseButtonName);
             cardBuyButton = rootElement.Q<Button>(cardBuyButtonName);
+            cardBulkBuyButton = rootElement.Q<Button>(cardBulkBuyButtonName);
+            cardBulkBuyButton.text = "Buy x" + bulkBuyCount;
             rootElement.Q<Label>(cardNameLabelName).text = cardPacks.PackType.DisplayName;
             rootElement.Q<VisualElement>(cardArtName).style.backgroundImage = new StyleBackground(cardPacks.PackType.Art);
             rootElement.Q<Label>(cardPriceLabelName).text = MoneyFormat.Format(gameplayConfig.CardPrice);
+            rootElement.Q<Label>(cardBulkPriceLabelName).text = MoneyFormat.Format(BulkPrice);
 
             // Removing first keeps a reload of the same tree from listening twice.
             shopButton.clicked -= Open;
@@ -55,6 +66,8 @@ namespace Chillquarium.Gameplay
             shopCloseButton.clicked += Close;
             cardBuyButton.clicked -= BuyCard;
             cardBuyButton.clicked += BuyCard;
+            cardBulkBuyButton.clicked -= BuyBulk;
+            cardBulkBuyButton.clicked += BuyBulk;
             wallet.BalanceChanged -= UpdateBuyButton;
             wallet.BalanceChanged += UpdateBuyButton;
             UpdateBuyButton(wallet.Balance);
@@ -75,18 +88,29 @@ namespace Chillquarium.Gameplay
 
         private void BuyCard()
         {
-            if (!wallet.TrySpend(gameplayConfig.CardPrice))
+            Buy(1);
+        }
+
+        private void BuyBulk()
+        {
+            Buy(bulkBuyCount);
+        }
+
+        private void Buy(int count)
+        {
+            if (!wallet.TrySpend(gameplayConfig.CardPrice * count))
             {
                 return;
             }
 
             Close();
-            cardPacks.AddPack();
+            cardPacks.AddPacks(count);
         }
 
         private void UpdateBuyButton(double balance)
         {
             cardBuyButton.SetEnabled(balance >= gameplayConfig.CardPrice);
+            cardBulkBuyButton.SetEnabled(balance >= BulkPrice);
         }
     }
 }
