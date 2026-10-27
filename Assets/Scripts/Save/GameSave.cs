@@ -5,7 +5,7 @@ namespace Chillquarium.Gameplay
 {
     /// <summary>
     /// Saves the money, the fish and the unopened cards to a JSON file and restores them when the game starts.
-    /// Without a save file the game is new and starts with the starter fish.
+    /// Without a save file the game is new and starts with the starting money and the starter fish.
     /// </summary>
     public sealed class GameSave : MonoBehaviour
     {
@@ -28,6 +28,7 @@ namespace Chillquarium.Gameplay
             }
             else
             {
+                wallet.SetBalance(gameplayConfig.StartingMoney);
                 spawner.Spawn(gameplayConfig.StarterSpecies);
             }
         }
@@ -74,7 +75,7 @@ namespace Chillquarium.Gameplay
 
         private void Restore(SaveData data)
         {
-            wallet.RestoreBalance(data.money);
+            wallet.SetBalance(data.money);
             cardPacks.Restore(data.packs);
 
             foreach (var savedFish in data.fishes)

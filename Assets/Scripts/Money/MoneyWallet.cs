@@ -8,22 +8,16 @@ namespace Chillquarium.Gameplay
     /// </summary>
     public sealed class MoneyWallet : MonoBehaviour
     {
-        [SerializeField] private GameplayConfig gameplayConfig;
-
         private double balance;
 
         public event Action<double> BalanceChanged;
 
         public double Balance => balance;
 
-        private void Awake()
+        // GameSave sets the starting money of a new game or the saved balance.
+        public void SetBalance(double amount)
         {
-            balance = gameplayConfig.StartingMoney;
-        }
-
-        public void RestoreBalance(double savedBalance)
-        {
-            balance = savedBalance;
+            balance = amount;
             BalanceChanged?.Invoke(balance);
         }
 

@@ -667,7 +667,7 @@ Transform:
   m_GameObject: {fileID: 1243598992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -685,8 +685,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72626e6877b384e0eb929482c16d5793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.SwimArea
-  width: 15
-  height: 5.6
+  width: 17
+  height: 5.5
 --- !u!1 &1270696059
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,7 +887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e7fab8965d845c2a2f140f2047e365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.MoneyWallet
-  gameplayConfig: {fileID: 11400000, guid: 980d9132cbbfc43568bc782652739600, type: 2}
 --- !u!4 &1325317293
 Transform:
   m_ObjectHideFlags: 0
