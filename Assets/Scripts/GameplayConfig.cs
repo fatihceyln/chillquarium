@@ -20,7 +20,7 @@ namespace Chillquarium.Gameplay
 
         [Header("Food")]
         [Tooltip("XP a baby gains from eating one food pellet.")]
-        [SerializeField, Min(0f)] private float foodXp = 5f;
+        [SerializeField, Min(0f)] private float foodXP = 5f;
 
         [Header("Rarities")]
         [SerializeField] private RarityTier common = new();
@@ -40,7 +40,7 @@ namespace Chillquarium.Gameplay
         public double CardPrice => cardPrice;
         public int FishPerCard => fishPerCard;
         public float IncomeIntervalSeconds => incomeIntervalSeconds;
-        public float FoodXp => foodXp;
+        public float FoodXP => foodXP;
         public FishSpecies StarterSpecies => starterSpecies;
         public float XpPerSecond => xpPerSecond;
         public IReadOnlyList<FishBalance> Fishes => fishes;

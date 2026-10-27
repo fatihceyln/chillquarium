@@ -22,8 +22,8 @@ namespace Chillquarium.Gameplay
         private FishSpecies species;
 
         public FishSpecies Species => species;
-        public float Xp => xp;
-        public bool IsAdult => xp >= Balance.AdultXp;
+        public float XP => xp;
+        public bool IsAdult => xp >= Balance.AdultXP;
         public double IncomePerSecond => IsAdult ? Balance.AdultIncomePerSecond : Balance.BabyIncomePerSecond;
 
         // Looked up on every use, so balance edits in GameplayConfig apply to fish already in the tank.
@@ -53,7 +53,7 @@ namespace Chillquarium.Gameplay
 
         public void Feed()
         {
-            xp += gameplayConfig.FoodXp;
+            xp += gameplayConfig.FoodXP;
             ApplyGrowth();
         }
 

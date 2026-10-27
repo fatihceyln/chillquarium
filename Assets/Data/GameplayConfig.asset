@@ -16,7 +16,7 @@ MonoBehaviour:
   cardPrice: 5
   fishPerCard: 5
   incomeIntervalSeconds: 1
-  foodXp: 5
+  foodXP: 5
   common:
     displayColor: {r: 0.99607843, g: 0.9882353, b: 1, a: 1}
     dropWeight: 70
@@ -35,20 +35,20 @@ MonoBehaviour:
   - species: {fileID: 11400000, guid: d6d21e1f8e04d4909a13b4c1d5afcbdc, type: 2}
     babyIncomePerSecond: 1
     adultIncomePerSecond: 4
-    adultXp: 30
+    adultXP: 30
   - species: {fileID: 11400000, guid: b4e046eb94a4b41bf8decf33d6f36843, type: 2}
     babyIncomePerSecond: 1.5
     adultIncomePerSecond: 6
-    adultXp: 45
+    adultXP: 45
   - species: {fileID: 11400000, guid: 403d5286533184334bbb4bc695792df5, type: 2}
     babyIncomePerSecond: 5
     adultIncomePerSecond: 20
-    adultXp: 90
+    adultXP: 90
   - species: {fileID: 11400000, guid: 3c3877efbf1824291ba88a1e38697ab3, type: 2}
     babyIncomePerSecond: 15
     adultIncomePerSecond: 60
-    adultXp: 180
+    adultXP: 180
   - species: {fileID: 11400000, guid: 17f0f1e262c5b456dbea79ff9a549e49, type: 2}
     babyIncomePerSecond: 50
     adultIncomePerSecond: 200
-    adultXp: 300
+    adultXP: 300

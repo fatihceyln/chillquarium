@@ -13,11 +13,11 @@ namespace Chillquarium.Gameplay
         [SerializeField, Min(0f)] private float babyIncomePerSecond = 1f;
         [SerializeField, Min(0f)] private float adultIncomePerSecond = 4f;
         [Tooltip("XP a baby needs to become an adult.")]
-        [SerializeField, Min(1f)] private float adultXp = 60f;
+        [SerializeField, Min(1f)] private float adultXP = 60f;
 
         public FishSpecies Species => species;
         public float BabyIncomePerSecond => babyIncomePerSecond;
         public float AdultIncomePerSecond => adultIncomePerSecond;
-        public float AdultXp => adultXp;
+        public float AdultXP => adultXP;
     }
 }

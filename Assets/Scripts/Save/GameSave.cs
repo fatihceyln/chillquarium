@@ -61,7 +61,7 @@ namespace Chillquarium.Gameplay
 
             foreach (var fish in spawner.Fishes)
             {
-                data.fishes.Add(new FishSaveData { species = fish.Species.name, xp = fish.Xp });
+                data.fishes.Add(new FishSaveData { species = fish.Species.name, xp = fish.XP });
             }
 
             // Cards laid out but not clicked are saved as new babies, so quitting mid-card loses no fish.
