@@ -4,6 +4,7 @@
 Drop.wav    a soft water plip when food is dropped
 Eat.wav     a short bubbly pop when a fish eats a pellet
 Reveal.wav  a bright three-note chime when a fish card is opened
+Collect.wav a quick rising swoosh when a fish card is clicked and the fish joins the tank
 """
 import math, struct, sys, wave
 from pathlib import Path
@@ -56,7 +57,9 @@ def main():
     overtones = [sweep(0.4, freq * 2, freq * 2, 0.1, 0.15, start=index * 0.09, length=1.0) for index, freq in enumerate(notes)]
     write(folder / "Reveal.wav", mix(*chime, *overtones))
 
-    print(f"Wrote Drop.wav, Eat.wav and Reveal.wav to {folder}")
+    write(folder / "Collect.wav", mix(sweep(0.16, 500, 1700, 0.08, 1.0), sweep(0.1, 1000, 2400, 0.04, 0.3, start=0.03)))
+
+    print(f"Wrote Drop.wav, Eat.wav, Reveal.wav and Collect.wav to {folder}")
 
 
 if __name__ == "__main__":
