@@ -10,7 +10,6 @@ namespace Chillquarium.Gameplay
     /// </summary>
     public sealed class Feeder : MonoBehaviour
     {
-        [SerializeField] private GameplayConfig gameplayConfig;
         [SerializeField] private Camera worldCamera;
         [SerializeField] private PanelRenderer hudPanelRenderer;
         [SerializeField] private SwimArea swimArea;
@@ -62,11 +61,11 @@ namespace Chillquarium.Gameplay
             return pellets.Count > 0;
         }
 
-        public void Eat(FoodPellet pellet, Fish fish)
+        // The fish adds the food XP itself, so the feeder only handles pellets and never needs to know fish.
+        public void Eat(FoodPellet pellet)
         {
             pellets.Remove(pellet);
             Destroy(pellet.gameObject);
-            fish.Feed(gameplayConfig.FoodXp);
             soundSource.PlayOneShot(eatSound);
         }
 

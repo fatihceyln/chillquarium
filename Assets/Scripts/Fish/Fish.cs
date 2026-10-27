@@ -51,9 +51,9 @@ namespace Chillquarium.Gameplay
             ApplyGrowth();
         }
 
-        public void Feed(float foodXp)
+        public void Feed()
         {
-            xp += foodXp;
+            xp += gameplayConfig.FoodXp;
             ApplyGrowth();
         }
 

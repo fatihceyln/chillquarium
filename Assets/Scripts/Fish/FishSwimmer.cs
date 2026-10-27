@@ -119,7 +119,8 @@ namespace Chillquarium.Gameplay
 
             if (isChasing && Vector2.Distance(transform.position, pellet.transform.position) <= eatDistance)
             {
-                feeder.Eat(pellet, fish);
+                feeder.Eat(pellet);
+                fish.Feed();
             }
         }
 
