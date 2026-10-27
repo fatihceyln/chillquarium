@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Chillquarium.Gameplay;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -14,8 +15,8 @@ namespace Chillquarium.EditorTools
     /// <summary>
     /// Finds setup mistakes in scenes, prefabs and data assets before Play Mode:
     /// unassigned or empty Inspector fields on game scripts, missing scripts,
-    /// broken references, prefab overrides in scenes, UI element names that do not exist in the UXML
-    /// and USS class names that no stylesheet of that UXML defines.
+    /// broken references, prefab overrides in scenes, UI element names that do not exist in the UXML,
+    /// USS class names that no stylesheet of that UXML defines and species missing from the GameplayConfig fishes list.
     /// Run it from Tools > Chillquarium > Validate Project, or from the CLI with
     /// <c>unity command eval "return Chillquarium.EditorTools.ProjectValidator.RunAsText();"</c>.
     /// </summary>
@@ -114,6 +115,11 @@ namespace Chillquarium.EditorTools
                 ValidateObject(asset, path, issues);
             }
 
+            foreach (var path in FindAssetPaths("t:GameplayConfig", DataFolder))
+            {
+                ValidateConfig(AssetDatabase.LoadAssetAtPath<GameplayConfig>(path), path, issues);
+            }
+
             return issues;
         }
 
@@ -201,6 +207,32 @@ namespace Chillquarium.EditorTools
                 else if (isGameScript && property.isArray && property.propertyType == SerializedPropertyType.Generic && property.arraySize == 0)
                 {
                     issues.Add(new Issue(Severity.Warning, label, $"{property.propertyPath} is an empty list."));
+                }
+            }
+        }
+
+        private static void ValidateConfig(GameplayConfig config, string path, List<Issue> issues)
+        {
+            // A species without a row only fails in Play Mode, when a fish of it earns money or grows.
+            var listed = config.Fishes.Select(balance => balance.Species).Where(species => species != null).ToList();
+
+            foreach (var duplicate in listed.GroupBy(species => species).Where(group => group.Count() > 1))
+            {
+                issues.Add(new Issue(Severity.Error, path, $"{duplicate.Key.name} has more than one row in fishes."));
+            }
+
+            if (config.StarterSpecies != null && !listed.Contains(config.StarterSpecies))
+            {
+                issues.Add(new Issue(Severity.Error, path, $"starterSpecies {config.StarterSpecies.name} has no row in fishes."));
+            }
+
+            foreach (var speciesPath in FindAssetPaths("t:FishSpecies", DataFolder))
+            {
+                var species = AssetDatabase.LoadAssetAtPath<FishSpecies>(speciesPath);
+
+                if (!listed.Contains(species))
+                {
+                    issues.Add(new Issue(Severity.Warning, path, $"{species.name} has no row in fishes, so no card gives it."));
                 }
             }
         }
