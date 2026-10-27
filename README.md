@@ -44,7 +44,7 @@ Babies earn 1 XP per second and 5 XP per food pellet. A card costs $5. Drop chan
 ## How it was made
 
 - **Engine:** Unity 6, 2D URP, UI Toolkit (UXML + USS) and the Input System.
-- **Art:** every sprite, the background and the card were generated with the Codex CLI in a soft, textured cartoon style. The raw images and the prompts that made them are in [`Art/`](Art). An editor tool (`SpriteSheetCutter`) cuts the fish sheet into separate sprites.
+- **Art:** every sprite, the background, the card and the fish card frame were generated with the Codex CLI in a soft, textured cartoon style. The raw images and the prompts that made them are in [`Art/`](Art). An editor tool (`SpriteSheetCutter`) cuts the fish sheet into separate sprites.
 - **Sound:** the sound effects are made from sine waves by a small script, [`Tools/agent/generate-sounds.py`](Tools/agent/generate-sounds.py).
 - **Code:** C# scripts in [`Assets/Scripts/`](Assets/Scripts), grouped by feature (Fish, Food, Money, Cards, Save, UI).
 - **Plan:** the step-by-step roadmap is in [`docs/roadmap.md`](docs/roadmap.md) (in Turkish).

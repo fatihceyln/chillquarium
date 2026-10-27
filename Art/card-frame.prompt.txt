@@ -1,0 +1,21 @@
+# References: a single fish card cropped from docs/references/video.MP4 (13.5 s) and Assets/UI/Images/CardFreshwater.png
+Use your image generation tool to create exactly ONE image. Do not run shell commands and do not create, edit or delete any files; only generate the image.
+
+The attached images are STYLE REFERENCE ONLY: a fish card from a cozy 2D aquarium game and a fish pack tile in the same art style. Create an original, EMPTY fish card frame for that game.
+The card: one upright rounded-rectangle card, portrait, about 3:4 (width:height). Thick dark brown outline. Warm wooden / tan-orange card body with a slightly lighter inner bevel, flat bright colors with a subtle chunky pixel texture, simple shading, like the references.
+Upper 70% of the card: one large rounded-rectangle window, inset from the card edge, filled with a plain light warm beige color (the fish picture will be placed on top of it later). The window must be completely EMPTY.
+Lower 30% of the card: a darker reddish-brown rounded plaque with a few small stitch/dot details along its edge. The plaque is EMPTY: no gem, no icon, no text.
+No fish, no text, no numbers, no gem, no shadow, no glow.
+Background around the card: fully TRANSPARENT (PNG with alpha). The card is centered and fills about 90% of the image height.
+Portrait image 1024x1536.
+
+# Step 2: the step-1 image had a brown smudge in the window and a dark shadow around the card, so it was edited with this prompt (input: the step-1 image)
+Use your image generation tool to create exactly ONE image. Do not run shell commands and do not create, edit or delete any files; only generate the image.
+
+Edit the attached card frame. Keep the card EXACTLY as it is: same shape, same colors, same outline, same window, same reddish plaque with its stitch dots, same proportions and position.
+Change only two things:
+1. The large window in the upper part: remove the brown smudge in its middle. Fill the whole window evenly with the same plain light warm beige as its edges, keeping the small white corner highlights.
+2. Remove the dark blurry shadow/halo around the outside of the card. Keep only the card's own thin dark outline; everything outside the outline must be fully TRANSPARENT (PNG with alpha).
+No fish, no text, no gem. Same image size.
+
+# Step 3: Codex left the window see-through, so the window was filled with flat beige (keeping the near-white rim and corner highlights) and the transparent margins were trimmed with numpy. The result is Assets/UI/Images/CardFrame.png.
