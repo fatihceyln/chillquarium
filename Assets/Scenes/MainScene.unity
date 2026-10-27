@@ -1412,6 +1412,7 @@ MonoBehaviour:
   cardPopStaggerMilliseconds: 70
   cardSqueezeMilliseconds: 120
   collectMilliseconds: 350
+  swipeSampleSpacing: 40
 --- !u!1 &1325317291
 GameObject:
   m_ObjectHideFlags: 0
