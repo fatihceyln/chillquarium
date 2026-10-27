@@ -8,6 +8,8 @@ namespace Chillquarium.Gameplay
     public sealed class SaveData
     {
         public double money;
+        // Bought cards not opened yet.
+        public int packs;
         public List<FishSaveData> fishes = new();
     }
 

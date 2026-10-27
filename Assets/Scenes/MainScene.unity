@@ -382,6 +382,7 @@ MonoBehaviour:
   gameplayConfig: {fileID: 11400000, guid: 980d9132cbbfc43568bc782652739600, type: 2}
   wallet: {fileID: 1325317292}
   spawner: {fileID: 185899888}
+  cardPackView: {fileID: 1270696064}
   autosaveIntervalSeconds: 5
 --- !u!4 &258883857
 Transform:
