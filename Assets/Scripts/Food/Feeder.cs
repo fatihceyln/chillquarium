@@ -6,7 +6,8 @@ using UnityEngine.UIElements;
 namespace Chillquarium.Gameplay
 {
     /// <summary>
-    /// Drops a food pellet where the player clicks in the water and keeps track of the pellets fish can eat.
+    /// Drops a food pellet where the player clicks in the water, and more while the button is held,
+    /// and keeps track of the pellets fish can eat.
     /// </summary>
     public sealed class Feeder : MonoBehaviour
     {
@@ -17,9 +18,13 @@ namespace Chillquarium.Gameplay
         [SerializeField] private AudioSource soundSource;
         [SerializeField] private AudioClip dropSound;
         [SerializeField] private AudioClip eatSound;
+        [Tooltip("While the button is held after a press in the water, another pellet drops at the pointer this often.")]
+        [SerializeField, Min(0.01f)] private float holdDropIntervalSeconds = 0.2f;
 
         private readonly List<FoodPellet> pellets = new();
         private VisualElement hudRoot;
+        private bool isHoldingToFeed;
+        private float nextHoldDropTime;
 
         // Awake rather than OnEnable, so the HUD root survives if the feeder is ever switched off and on.
         private void Awake()
@@ -29,11 +34,28 @@ namespace Chillquarium.Gameplay
 
         private void Update()
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame && !IsOverHUD(Mouse.current.position.ReadValue()))
+            var button = Mouse.current.leftButton;
+            var screenPosition = Mouse.current.position.ReadValue();
+
+            // Only a press that starts in the water feeds, so holding after a press on the HUD never drops food.
+            if (button.wasPressedThisFrame)
+            {
+                isHoldingToFeed = !IsOverHUD(screenPosition);
+                nextHoldDropTime = Time.time;
+            }
+
+            if (!button.isPressed)
+            {
+                isHoldingToFeed = false;
+            }
+
+            // Checked again on every drop, so a HUD element that opens during the hold, like the fish cards, stops it.
+            if (isHoldingToFeed && Time.time >= nextHoldDropTime && !IsOverHUD(screenPosition))
             {
                 // Vector2 drops the camera's z, so the pellet sits at z = 0 with the fish instead of on the camera plane.
-                Vector2 clickPoint = worldCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                DropPellet(clickPoint);
+                Vector2 dropPoint = worldCamera.ScreenToWorldPoint(screenPosition);
+                DropPellet(dropPoint);
+                nextHoldDropTime = Time.time + holdDropIntervalSeconds;
             }
         }
 

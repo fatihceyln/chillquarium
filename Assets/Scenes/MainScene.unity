@@ -496,6 +496,7 @@ MonoBehaviour:
   soundSource: {fileID: 745716885}
   dropSound: {fileID: 8300000, guid: bfe5ae686fea94c788b5bf8729115687, type: 3}
   eatSound: {fileID: 8300000, guid: a3c91cb138f0a4b1ea09ec8d1d5b158b, type: 3}
+  holdDropIntervalSeconds: 0.2
 --- !u!4 &717127885
 Transform:
   m_ObjectHideFlags: 0
