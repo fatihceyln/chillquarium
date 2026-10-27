@@ -4,8 +4,8 @@ using UnityEngine.Rendering;
 namespace Chillquarium.Gameplay
 {
     /// <summary>
-    /// A fish in the tank. Earns XP over time and from food, and grows from a small baby into a full-size adult
-    /// as its XP reaches its species' adult XP, then switches from the species' baby sprite to its adult sprite.
+    /// A fish in the tank. Earns XP over time and from food; once its XP reaches its species' adult XP it turns
+    /// from a small baby into a full-size adult, switching from the species' baby sprite to its adult sprite.
     /// Fish are spawned from a prefab, so FishSpawner hands each one its species and the scene objects it needs.
     /// </summary>
     public sealed class Fish : MonoBehaviour
@@ -59,9 +59,7 @@ namespace Chillquarium.Gameplay
 
         private void ApplyGrowth()
         {
-            // 0 for a newborn, 1 for an adult.
-            var growth = Mathf.Clamp01(xp / Balance.AdultXp);
-            var size = Mathf.Lerp(babySize, 1f, growth);
+            var size = IsAdult ? 1f : babySize;
 
             // Keep the sign of x: FishSwimmer flips it to face the swim direction.
             var scale = visual.localScale;
