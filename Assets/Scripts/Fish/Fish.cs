@@ -9,6 +9,7 @@ namespace Chillquarium.Gameplay
     /// </summary>
     public sealed class Fish : MonoBehaviour
     {
+        [SerializeField] private GameplayConfig gameplayConfig;
         [SerializeField] private FishSwimmer swimmer;
         [SerializeField] private SortingGroup sortingGroup;
         [SerializeField] private Transform visual;
@@ -25,8 +26,11 @@ namespace Chillquarium.Gameplay
 
         public FishSpecies Species => species;
         public float AgeSeconds => ageSeconds;
-        public bool IsAdult => ageSeconds >= species.GrowthSeconds;
-        public double IncomePerSecond => IsAdult ? species.AdultIncomePerSecond : species.BabyIncomePerSecond;
+        public bool IsAdult => ageSeconds >= Balance.GrowthSeconds;
+        public double IncomePerSecond => IsAdult ? Balance.AdultIncomePerSecond : Balance.BabyIncomePerSecond;
+
+        // Looked up on every use, so balance edits in GameplayConfig apply to fish already in the tank.
+        private FishBalance Balance => gameplayConfig.GetBalance(species);
 
         private void Update()
         {
@@ -59,7 +63,7 @@ namespace Chillquarium.Gameplay
         private void ApplyGrowth()
         {
             // 0 for a newborn, 1 for an adult.
-            var growth = Mathf.Clamp01(ageSeconds / species.GrowthSeconds);
+            var growth = Mathf.Clamp01(ageSeconds / Balance.GrowthSeconds);
             var size = Mathf.Lerp(babySize, 1f, growth);
 
             // Keep the sign of x: FishSwimmer flips it to face the swim direction.

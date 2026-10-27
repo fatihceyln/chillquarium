@@ -9,29 +9,29 @@ namespace Chillquarium.Gameplay
     {
         public static FishSpecies PickSpecies(GameplayConfig gameplayConfig)
         {
-            var cardSpecies = gameplayConfig.CardSpecies;
+            var fishes = gameplayConfig.Fishes;
             var totalWeight = 0f;
 
-            foreach (var species in cardSpecies)
+            foreach (var fish in fishes)
             {
-                totalWeight += Weight(species, gameplayConfig);
+                totalWeight += Weight(fish.Species, gameplayConfig);
             }
 
             // Walk the species until the random point falls inside one species' share of the total.
             var roll = Random.Range(0f, totalWeight);
 
-            foreach (var species in cardSpecies)
+            foreach (var fish in fishes)
             {
-                roll -= Weight(species, gameplayConfig);
+                roll -= Weight(fish.Species, gameplayConfig);
 
                 if (roll < 0f)
                 {
-                    return species;
+                    return fish.Species;
                 }
             }
 
             // A roll of exactly the total weight passes every share.
-            return cardSpecies[cardSpecies.Count - 1];
+            return fishes[fishes.Count - 1].Species;
         }
 
         // Species of the same rarity split that rarity's weight, so adding a second Rare does not make Rares more common.
@@ -39,9 +39,9 @@ namespace Chillquarium.Gameplay
         {
             var sameRarityCount = 0;
 
-            foreach (var other in gameplayConfig.CardSpecies)
+            foreach (var other in gameplayConfig.Fishes)
             {
-                if (other.Rarity == species.Rarity)
+                if (other.Species.Rarity == species.Rarity)
                 {
                     sameRarityCount++;
                 }

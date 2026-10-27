@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e4a9d2bd09c4ce0b3c7804bafbf3ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.Fish
+  gameplayConfig: {fileID: 11400000, guid: 980d9132cbbfc43568bc782652739600, type: 2}
   swimmer: {fileID: 7255878647998596985}
   sortingGroup: {fileID: 5363759480697325423}
   visual: {fileID: 173645547126207721}

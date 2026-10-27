@@ -84,18 +84,17 @@ namespace Chillquarium.Gameplay
 
         private bool TryFindSpecies(string speciesName, out FishSpecies found)
         {
-            foreach (var species in gameplayConfig.CardSpecies)
+            foreach (var fish in gameplayConfig.Fishes)
             {
-                if (species.name == speciesName)
+                if (fish.Species.name == speciesName)
                 {
-                    found = species;
+                    found = fish.Species;
                     return true;
                 }
             }
 
-            // The starter species does not have to be one the card gives.
-            found = gameplayConfig.StarterSpecies;
-            return found.name == speciesName;
+            found = null;
+            return false;
         }
     }
 }

@@ -15,6 +15,3 @@ MonoBehaviour:
   displayName: Angelfish
   rarity: 2
   placeholderColor: {r: 0.7882353, g: 0.80784315, b: 0.8392157, a: 1}
-  babyIncomePerSecond: 15
-  adultIncomePerSecond: 60
-  growthSeconds: 180

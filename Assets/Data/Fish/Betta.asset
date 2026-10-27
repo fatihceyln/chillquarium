@@ -15,6 +15,3 @@ MonoBehaviour:
   displayName: Betta
   rarity: 1
   placeholderColor: {r: 0.8392157, g: 0.22745098, b: 0.2901961, a: 1}
-  babyIncomePerSecond: 5
-  adultIncomePerSecond: 20
-  growthSeconds: 90
