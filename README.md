@@ -8,14 +8,14 @@ A small, cozy idle aquarium game made in Unity as a learning project. Buy fish c
 
 ## Features
 
-- **Fish cards:** the shop sells one card, "Freshwater Friends". Opening it gives a random fish.
+- **Fish cards:** the shop sells one card, "Freshwater Friends". Bought cards wait at the bottom of the tank. Each click on them opens one and lays out 5 more random fish cards; click each card to send its fish into the tank.
 - **Rarities:** every fish is Common, Rare, Epic or Legendary. Rarer fish drop less often and earn more.
 - **Idle income:** every fish in the tank earns money each second. Babies earn a little, adults earn a lot.
 - **Growing up:** fish earn XP over time and grow from baby to adult as it adds up, then switch to their adult look.
 - **Feeding:** click in the water to drop food. Hungry babies chase the nearest pellet, and every bite gives them extra XP.
 - **Stroke swimming:** fish swim like real fish. They push off in a stroke, squeeze and stretch, glide, slow down and stroke again in a new direction.
 - **Saving:** money and fish are saved automatically, so the tank is waiting for you when you come back.
-- **Polish:** rising bubbles, a bouncing money counter with floating "+$" labels, a pop-in card reveal and small sound effects.
+- **Polish:** rising bubbles, a bouncing money counter with floating "+$" labels, fish cards that pop in and spin away, and small sound effects.
 
 | Shop | Card reveal | Feeding |
 |---|---|---|
@@ -31,13 +31,13 @@ A small, cozy idle aquarium game made in Unity as a learning project. Buy fish c
 | Angelfish | Epic | $15/s | $60/s | 180 XP |
 | Golden Arowana | Legendary | $50/s | $200/s | 300 XP |
 
-Babies earn 1 XP per second and 5 XP per food pellet. A card costs $5. Drop chances by rarity: Common 70%, Rare 22%, Epic 7%, Legendary 1%. When a rarity has several fish, its chance is shared between them. Every value lives in one config asset (`Assets/Data/GameplayConfig.asset`), so the game can be tuned without touching code.
+Babies earn 1 XP per second and 5 XP per food pellet. A card costs $5 and holds 5 fish. Drop chances by rarity: Common 70%, Rare 22%, Epic 7%, Legendary 1%. When a rarity has several fish, its chance is shared between them. Every value lives in one config asset (`Assets/Data/GameplayConfig.asset`), so the game can be tuned without touching code.
 
 ## How to play
 
 1. Open the project in **Unity 6000.6.0f1** (macOS).
 2. Open `Assets/Scenes/MainScene.unity` and press **Play**.
-3. You start with one Guppy and $10. Click **Shop**, then **Buy** to open a card.
+3. You start with one Guppy and $10. Click **Shop**, then **Buy**. Click the card at the bottom of the tank to open it, then click each fish card.
 4. Click in the water to feed the babies.
 5. To start over, use **Tools > Chillquarium > Delete Save** (outside Play Mode).
 

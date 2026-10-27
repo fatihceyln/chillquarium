@@ -6,6 +6,12 @@
             <ui:Label name="money-label" text="$0.00" class="money-label" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="pack-layer" class="pack-layer" picking-mode="Ignore">
+        <ui:VisualElement name="card-row" class="card-row" picking-mode="Ignore" />
+        <ui:Button name="pack-button" class="pack-button hidden">
+            <ui:Label name="pack-count-label" text="x0" class="pack-count" picking-mode="Ignore" />
+        </ui:Button>
+    </ui:VisualElement>
     <ui:VisualElement name="shop-panel" class="shop-overlay hidden" picking-mode="Ignore">
         <ui:VisualElement class="shop-window">
             <ui:Label text="Shop" class="shop-title" />
@@ -18,17 +24,6 @@
                     <ui:Button name="card-buy-button" text="Buy" class="card-buy-button" />
                 </ui:VisualElement>
             </ui:VisualElement>
-        </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="reveal-panel" class="reveal-overlay hidden">
-        <ui:VisualElement name="reveal-window" class="reveal-window">
-            <ui:Label text="New fish!" class="reveal-title" />
-            <ui:Label name="reveal-fish-name-label" text="Fish" class="reveal-fish-name" />
-            <ui:Label name="reveal-rarity-label" text="Common" class="reveal-rarity" />
-            <ui:VisualElement class="reveal-art-box">
-                <ui:VisualElement name="reveal-fish-art" class="reveal-fish-art" />
-            </ui:VisualElement>
-            <ui:Button name="reveal-confirm-button" text="Awesome!" class="reveal-confirm-button" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

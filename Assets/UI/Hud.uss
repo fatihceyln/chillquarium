@@ -182,89 +182,139 @@
     opacity: 0.45;
 }
 
-.reveal-overlay {
+.pack-layer {
     position: absolute;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
+}
+
+/* Sits on the sand, below the swim area, so it never covers the water. */
+.pack-button {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    width: 150px;
+    height: 184px;
+    margin: 0 0 0 -75px;
+    padding: 0;
+    border-width: 0;
+    justify-content: flex-end;
     align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Images/CardFreshwater.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition-property: scale;
+    transition-duration: 0.1s;
 }
 
-.reveal-window {
-    transition-property: scale, opacity;
-    transition-duration: 0.25s;
-    transition-timing-function: ease-out-back;
-    width: 520px;
-    padding: 24px 28px 28px 28px;
-    align-items: center;
-    border-width: 3px;
-    border-color: rgb(87, 142, 172);
-    border-radius: 14px;
-    background-color: rgba(28, 54, 87, 0.95);
+.pack-button:hover {
+    background-color: rgba(0, 0, 0, 0);
+    scale: 1.05 1.05;
 }
 
-.reveal-window--pop {
-    scale: 0.6 0.6;
-    opacity: 0;
+.pack-button:active {
+    background-color: rgba(0, 0, 0, 0);
+    scale: 0.95 0.95;
 }
 
-.reveal-title {
-    margin: 0;
-    font-size: 36px;
-    -unity-font-style: bold;
-    color: rgb(255, 255, 255);
-}
-
-.reveal-fish-name {
-    margin: 4px 0 0 0;
-    font-size: 36px;
-    -unity-font-style: bold;
-    color: rgb(255, 255, 255);
-}
-
-.reveal-rarity {
-    margin: 4px 0 0 0;
+.pack-count {
+    margin: 0 0 22px 0;
     font-size: 32px;
     -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(11, 31, 42);
+}
+
+/* One centered row; cards that do not fit run off both screen edges. */
+.card-row {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 300px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.fish-card {
+    width: 170px;
+    /* Keep full size in a crowded row instead of squeezing to fit. */
+    flex-shrink: 0;
+    margin: 0 8px;
+    align-items: center;
+    transition-property: scale, opacity, rotate, translate, width, margin-left, margin-right;
+    transition-duration: 0.3s;
+    /* No overshoot on the size, so a collapsing card never goes below zero width. */
+    transition-timing-function: ease-out-back, ease-out-back, ease-out-back, ease-out-back, ease-out, ease-out, ease-out;
+}
+
+.fish-card:hover {
+    scale: 1.05 1.05;
+}
+
+/* Two classes outrank :hover, so a hovered card still pops in and spins away. */
+.fish-card.fish-card--pop {
+    width: 0;
+    margin: 0;
+    scale: 0.5 0.5;
+    opacity: 0;
+    translate: 0 60px;
+}
+
+.fish-card.fish-card--squeeze {
+    scale: 0.85 1;
+}
+
+.fish-card.fish-card--collect {
+    width: 0;
+    margin: 0;
+    scale: 0.2 0.2;
+    opacity: 0;
+    rotate: 270deg;
+    translate: 0 80px;
+}
+
+.fish-card__name {
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(11, 31, 42);
+}
+
+.fish-card__rarity {
+    margin: 0 0 4px 0;
+    padding: 0;
+    font-size: 20px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(11, 31, 42);
 }
 
-.reveal-art-box {
-    width: 220px;
-    height: 150px;
-    margin: 16px 0;
-    align-items: center;
-    justify-content: center;
-    border-width: 3px;
-    border-color: rgb(87, 142, 172);
-    border-radius: 10px;
-    background-color: rgb(20, 52, 99);
-}
-
-.reveal-fish-art {
-    width: 190px;
-    height: 120px;
+.fish-card__frame {
+    width: 150px;
+    height: 203px;
+    background-image: url("Images/CardFrame.png");
     background-size: contain;
     background-repeat: no-repeat;
 }
 
-.reveal-confirm-button {
-    align-self: stretch;
-    margin: 0;
-    padding: 6px 0;
-    border-width: 3px;
-    border-color: rgb(89, 186, 169);
-    border-radius: 10px;
-    background-color: rgb(62, 128, 126);
-    font-size: 32px;
-    -unity-font-style: bold;
-    color: rgb(255, 255, 255);
-}
-
-.reveal-confirm-button:hover {
-    background-color: rgb(78, 150, 147);
+/* Fits the frame's beige window. */
+.fish-card__fish {
+    position: absolute;
+    left: 10%;
+    top: 14%;
+    width: 80%;
+    height: 48%;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
