@@ -31,6 +31,7 @@ namespace Chillquarium.Gameplay
         [SerializeField] private string cardRarityClassName = "fish-card__rarity";
         [SerializeField] private string cardFrameClassName = "fish-card__frame";
         [SerializeField] private string cardFishClassName = "fish-card__fish";
+        [SerializeField] private string cardHitClassName = "fish-card__hit";
         [Tooltip("Delay between the fish cards of one opened card, so they come in one after another.")]
         [SerializeField, Min(0)] private int cardPopStaggerMilliseconds = 70;
         [Tooltip("How long the cards already out stay squeezed when another card opens, before they spring back.")]
@@ -39,6 +40,14 @@ namespace Chillquarium.Gameplay
         [SerializeField, Min(1f)] private float swipeSampleSpacing = 40f;
         [Tooltip("Shortest time between two collected cards while the button is held, so the cards that slide in under the pointer go one by one instead of all at once.")]
         [SerializeField, Min(0f)] private float collectIntervalSeconds = 0.2f;
+        [Header("Debug")]
+        [Tooltip("Tints the fish cards the pointer can collect and marks every point checked while the button is held: green collected, yellow a card that had to wait for the collect interval, red nothing.")]
+        [SerializeField] private bool showHitDebug;
+        [SerializeField, Min(0.05f)] private float hitDebugDotSeconds = 0.6f;
+        [SerializeField] private string hitDebugClassName = "hit-debug";
+        [SerializeField] private string hitDebugDotClassName = "hit-debug-dot";
+        [SerializeField] private string hitDebugDotCollectClassName = "hit-debug-dot--collect";
+        [SerializeField] private string hitDebugDotWaitClassName = "hit-debug-dot--wait";
 
         // Only the collect state changes rotate, so its end marks the moment a collected card has spun away.
         private static readonly StylePropertyName CollectEndProperty = new("rotate");
@@ -61,6 +70,9 @@ namespace Chillquarium.Gameplay
         // a press, and every card the pointer passes over while the button is held, is collected.
         private void Update()
         {
+            // Read every frame, so the Inspector toggle works during Play.
+            hudRoot?.EnableInClassList(hitDebugClassName, showHitDebug);
+
             var mouse = Mouse.current;
 
             if (cardPacks.UnclaimedSpecies.Count == 0 || !mouse.leftButton.isPressed)
@@ -187,7 +199,13 @@ namespace Chillquarium.Gameplay
             fish.style.backgroundImage = new StyleBackground(species.AdultSprite);
             frame.Add(fish);
 
-            // Only the card itself is picked, so anywhere on it finds the card; it keeps its species for the collect.
+            // Only this invisible box is picked, so its USS insets set how wide the collectable area is
+            // without changing how the card looks; the card keeps its species for the collect.
+            var hit = new VisualElement();
+            hit.AddToClassList(cardHitClassName);
+            card.Add(hit);
+
+            card.pickingMode = PickingMode.Ignore;
             nameLabel.pickingMode = PickingMode.Ignore;
             rarityLabel.pickingMode = PickingMode.Ignore;
             frame.pickingMode = PickingMode.Ignore;
@@ -215,23 +233,46 @@ namespace Chillquarium.Gameplay
 
         private void CollectCardAt(Vector2 screenPosition)
         {
-            if (Time.time < nextCollectTime)
+            // A collected card's hit box ignores picking, so it is never found twice.
+            var picked = PanelPicking.Pick(hudRoot.panel, screenPosition);
+            // Only a card's hit box is pickable, so a hit inside the row is always one.
+            var isCard = picked != null && picked.parent?.parent == cardRow;
+            var canCollect = isCard && Time.time >= nextCollectTime;
+
+            if (showHitDebug)
             {
-                return;
+                ShowHitDebugDot(screenPosition, canCollect ? hitDebugDotCollectClassName : isCard ? hitDebugDotWaitClassName : null);
             }
 
-            // A collected card ignores picking, so it is never found twice.
-            var picked = PanelPicking.Pick(hudRoot.panel, screenPosition);
-
-            if (picked != null && picked.parent == cardRow)
+            if (canCollect)
             {
-                CollectCard(picked, (FishSpecies)picked.userData, screenPosition);
+                CollectCard(picked, screenPosition);
             }
         }
 
-        private void CollectCard(VisualElement card, FishSpecies species, Vector2 screenPosition)
+        // A short-lived dot on the pack layer where the pointer was checked; the class picks its color.
+        private void ShowHitDebugDot(Vector2 screenPosition, string resultClassName)
         {
-            card.pickingMode = PickingMode.Ignore;
+            var dot = new VisualElement { pickingMode = PickingMode.Ignore };
+            dot.AddToClassList(hitDebugDotClassName);
+
+            if (resultClassName != null)
+            {
+                dot.AddToClassList(resultClassName);
+            }
+
+            var position = packLayer.WorldToLocal(PanelPicking.ToPanel(hudRoot.panel, screenPosition));
+            dot.style.left = position.x;
+            dot.style.top = position.y;
+            packLayer.Add(dot);
+            dot.schedule.Execute(dot.RemoveFromHierarchy).StartingIn(Mathf.RoundToInt(hitDebugDotSeconds * 1000f));
+        }
+
+        private void CollectCard(VisualElement hit, Vector2 screenPosition)
+        {
+            var card = hit.parent;
+            var species = (FishSpecies)card.userData;
+            hit.pickingMode = PickingMode.Ignore;
             nextCollectTime = Time.time + collectIntervalSeconds;
 
             // The collect class spins the card away and shrinks its width to 0, so the rest slide together and stay centered.

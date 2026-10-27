@@ -10,9 +10,13 @@ namespace Chillquarium.Gameplay
     {
         public static VisualElement Pick(IPanel panel, Vector2 screenPosition)
         {
+            return panel.Pick(ToPanel(panel, screenPosition));
+        }
+
+        public static Vector2 ToPanel(IPanel panel, Vector2 screenPosition)
+        {
             // Input System y counts up from the bottom; panel y counts down from the top.
-            var panelPosition = RuntimePanelUtils.ScreenToPanel(panel, new Vector2(screenPosition.x, Screen.height - screenPosition.y));
-            return panel.Pick(panelPosition);
+            return RuntimePanelUtils.ScreenToPanel(panel, new Vector2(screenPosition.x, Screen.height - screenPosition.y));
         }
     }
 }

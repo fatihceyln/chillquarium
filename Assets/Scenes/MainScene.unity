@@ -857,10 +857,17 @@ MonoBehaviour:
   cardRarityClassName: fish-card__rarity
   cardFrameClassName: fish-card__frame
   cardFishClassName: fish-card__fish
+  cardHitClassName: fish-card__hit
   cardPopStaggerMilliseconds: 70
   cardSqueezeMilliseconds: 120
   swipeSampleSpacing: 40
   collectIntervalSeconds: 0.2
+  showHitDebug: 0
+  hitDebugDotSeconds: 0.6
+  hitDebugClassName: hit-debug
+  hitDebugDotClassName: hit-debug-dot
+  hitDebugDotCollectClassName: hit-debug-dot--collect
+  hitDebugDotWaitClassName: hit-debug-dot--wait
 --- !u!1 &1325317291
 GameObject:
   m_ObjectHideFlags: 0
