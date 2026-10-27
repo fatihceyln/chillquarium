@@ -22,7 +22,7 @@ namespace Chillquarium.Gameplay
         private readonly List<FoodPellet> pellets = new();
         private VisualElement hudRoot;
 
-        // Awake rather than OnEnable: windows switch the feeder off and on, and the HUD root must survive that.
+        // Awake rather than OnEnable, so the HUD root survives if the feeder is ever switched off and on.
         private void Awake()
         {
             hudPanelRenderer.RegisterUIReloadCallback(HandleHUDReloaded);

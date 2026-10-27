@@ -11,7 +11,6 @@ namespace Chillquarium.Gameplay
         [SerializeField] private PanelRenderer panelRenderer;
         [SerializeField] private MoneyWallet wallet;
         [SerializeField] private GameplayConfig gameplayConfig;
-        [SerializeField] private Feeder feeder;
         [SerializeField] private CardPackView cardPackView;
         [SerializeField] private string shopButtonName = "shop-button";
         [SerializeField] private string shopPanelName = "shop-panel";
@@ -52,18 +51,16 @@ namespace Chillquarium.Gameplay
             Close();
         }
 
+        // The open overlay covers the whole screen and takes the pointer, so nothing behind it, like the water,
+        // the pack or the fish cards, reacts until the shop closes.
         private void Open()
         {
             shopPanel.RemoveFromClassList(hiddenClassName);
-
-            // The window covers the water, so clicks on it must not drop food.
-            feeder.enabled = false;
         }
 
         private void Close()
         {
             shopPanel.AddToClassList(hiddenClassName);
-            feeder.enabled = true;
         }
 
         private void BuyCard()

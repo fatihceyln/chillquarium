@@ -1366,7 +1366,6 @@ MonoBehaviour:
   panelRenderer: {fileID: 1270696061}
   wallet: {fileID: 1325317292}
   gameplayConfig: {fileID: 11400000, guid: 980d9132cbbfc43568bc782652739600, type: 2}
-  feeder: {fileID: 717127884}
   cardPackView: {fileID: 1270696064}
   shopButtonName: shop-button
   shopPanelName: shop-panel
