@@ -1278,8 +1278,6 @@ MonoBehaviour:
   bumpClassName: money--bump
   gainClassName: money-gain
   gainRiseClassName: money-gain--rise
-  bumpMilliseconds: 120
-  gainMilliseconds: 900
 --- !u!1931382934 &1270696061
 PanelRenderer:
   m_ObjectHideFlags: 0

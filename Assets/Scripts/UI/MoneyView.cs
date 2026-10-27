@@ -15,8 +15,11 @@ namespace Chillquarium.Gameplay
         [SerializeField] private string bumpClassName = "money--bump";
         [SerializeField] private string gainClassName = "money-gain";
         [SerializeField] private string gainRiseClassName = "money-gain--rise";
-        [SerializeField, Min(1)] private int bumpMilliseconds = 120;
-        [SerializeField, Min(1)] private int gainMilliseconds = 900;
+
+        // The bump ends when the money panel has scaled up, and a gain label is gone when it has faded out.
+        // Waiting for these transitions keeps the timing in the USS alone.
+        private static readonly StylePropertyName BumpEndProperty = new("scale");
+        private static readonly StylePropertyName GainEndProperty = new("opacity");
 
         private Label moneyLabel;
         private VisualElement money;
@@ -38,6 +41,8 @@ namespace Chillquarium.Gameplay
         {
             moneyLabel = rootElement.Q<Label>(moneyLabelName);
             money = rootElement.Q<VisualElement>(moneyName);
+            money.UnregisterCallback<TransitionEndEvent>(HandleMoneyTransitionEnd);
+            money.RegisterCallback<TransitionEndEvent>(HandleMoneyTransitionEnd);
 
             // Listen only once the label exists. Removing first keeps a live reload from listening twice.
             wallet.BalanceChanged -= ShowBalance;
@@ -62,15 +67,29 @@ namespace Chillquarium.Gameplay
         private void ShowGain(double amount)
         {
             money.AddToClassList(bumpClassName);
-            money.schedule.Execute(() => money.RemoveFromClassList(bumpClassName)).StartingIn(bumpMilliseconds);
 
             var gainLabel = new Label("+" + MoneyFormat.Format(amount));
             gainLabel.AddToClassList(gainClassName);
+            gainLabel.RegisterCallback<TransitionEndEvent>(transitionEvent =>
+            {
+                if (transitionEvent.stylePropertyNames.Contains(GainEndProperty))
+                {
+                    gainLabel.RemoveFromHierarchy();
+                }
+            });
             money.Add(gainLabel);
 
             // Add the rise class a frame later, so the USS transition has a starting point to animate from.
             gainLabel.schedule.Execute(() => gainLabel.AddToClassList(gainRiseClassName));
-            gainLabel.schedule.Execute(() => gainLabel.RemoveFromHierarchy()).StartingIn(gainMilliseconds);
+        }
+
+        private void HandleMoneyTransitionEnd(TransitionEndEvent transitionEvent)
+        {
+            // Gain labels inside the panel send their own transition events up; only the panel's scale ends the bump.
+            if (transitionEvent.target == money && transitionEvent.stylePropertyNames.Contains(BumpEndProperty))
+            {
+                money.RemoveFromClassList(bumpClassName);
+            }
         }
     }
 }
