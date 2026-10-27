@@ -17,8 +17,8 @@
             <ui:Label text="Shop" class="shop-title" />
             <ui:Button name="shop-close-button" text="X" class="shop-close-button" />
             <ui:VisualElement class="card-section">
-                <ui:Label text="Freshwater Friends" class="card-name" />
-                <ui:VisualElement class="card-art" />
+                <ui:Label name="card-name-label" text="Fish Card" class="card-name" />
+                <ui:VisualElement name="card-art" class="card-art" />
                 <ui:VisualElement class="card-buy-row">
                     <ui:Label name="card-price-label" text="$0.00" class="card-price" />
                     <ui:Button name="card-buy-button" text="Buy" class="card-buy-button" />

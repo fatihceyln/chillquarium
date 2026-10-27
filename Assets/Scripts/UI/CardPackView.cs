@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -6,16 +5,16 @@ using UnityEngine.UIElements;
 namespace Chillquarium.Gameplay
 {
     /// <summary>
-    /// The bought fish cards waiting at the bottom of the tank. Each click on the pack opens one card and adds its fish to the row;
-    /// pressing a fish card, or sliding onto it with the button held, sends that fish into the tank as a baby from where the card was.
+    /// Shows the bought fish cards waiting at the bottom of the tank and the fish cards laid out from them.
+    /// Each click on the pack opens one card; pressing a fish card, or passing over it with the button held,
+    /// sends that fish into the tank as a baby. The state lives in CardPacks.
     /// </summary>
     public sealed class CardPackView : MonoBehaviour
     {
         [SerializeField] private PanelRenderer panelRenderer;
         [SerializeField] private GameplayConfig gameplayConfig;
-        [SerializeField] private FishSpawner spawner;
+        [SerializeField] private CardPacks cardPacks;
         [SerializeField] private Camera worldCamera;
-        [SerializeField] private SwimArea swimArea;
         [SerializeField] private AudioSource soundSource;
         [SerializeField] private AudioClip revealSound;
         [SerializeField] private AudioClip collectSound;
@@ -36,73 +35,54 @@ namespace Chillquarium.Gameplay
         [SerializeField, Min(0)] private int cardPopStaggerMilliseconds = 70;
         [Tooltip("How long the cards already out stay squeezed when another card opens, before they spring back.")]
         [SerializeField, Min(1)] private int cardSqueezeMilliseconds = 120;
-        [Tooltip("How long a collected card spins away before it is removed. Match the USS transition.")]
-        [SerializeField, Min(1)] private int collectMilliseconds = 350;
-        [Tooltip("Panel pixels between the points checked along a swipe, so a fast swipe does not skip cards.")]
+        [Tooltip("Screen pixels between the points checked along a swipe, so a fast swipe does not skip cards.")]
         [SerializeField, Min(1f)] private float swipeSampleSpacing = 40f;
 
-        private readonly List<FishSpecies> unclaimedSpecies = new();
+        // Only the collect state changes rotate, so its end marks the moment a collected card has spun away.
+        private static readonly StylePropertyName CollectEndProperty = new("rotate");
+
         private VisualElement hudRoot;
         private VisualElement packLayer;
         private Button packButton;
         private Label packCountLabel;
         private VisualElement cardRow;
-        private int packCount;
-        private Vector2 lastPointerPanelPosition;
+        private Vector2 lastPointerScreenPosition;
         private bool wasPointerHeld;
-
-        public int PackCount => packCount;
-        // Fish whose cards are laid out but not clicked yet. The save keeps them as tank fish so they are not lost.
-        public IReadOnlyList<FishSpecies> UnclaimedSpecies => unclaimedSpecies;
 
         private void OnEnable()
         {
             panelRenderer.RegisterUIReloadCallback(HandleUIReloaded);
         }
 
-        // Collects by polling the mouse rather than by UI pointer events: a press, and every card the pointer
-        // passes over while the button is held, is collected, so one swipe can take a whole row.
+        // Collects by polling the mouse rather than by UI pointer events, which do not arrive while the button is held:
+        // a press, and every card the pointer passes over while the button is held, is collected.
         private void Update()
         {
             var mouse = Mouse.current;
 
-            if (unclaimedSpecies.Count == 0 || !mouse.leftButton.isPressed)
+            if (cardPacks.UnclaimedSpecies.Count == 0 || !mouse.leftButton.isPressed)
             {
                 wasPointerHeld = false;
                 return;
             }
 
             var screenPosition = mouse.position.ReadValue();
-
-            // Input System y counts up from the bottom; panel y counts down from the top.
-            var panelPosition = RuntimePanelUtils.ScreenToPanel(hudRoot.panel, new Vector2(screenPosition.x, Screen.height - screenPosition.y));
-            var from = wasPointerHeld ? lastPointerPanelPosition : panelPosition;
-            var steps = Mathf.Max(1, Mathf.CeilToInt(Vector2.Distance(from, panelPosition) / swipeSampleSpacing));
+            var from = wasPointerHeld ? lastPointerScreenPosition : screenPosition;
+            var steps = Mathf.Max(1, Mathf.CeilToInt(Vector2.Distance(from, screenPosition) / swipeSampleSpacing));
 
             for (var step = 1; step <= steps; step++)
             {
-                CollectCardAt(Vector2.Lerp(from, panelPosition, (float)step / steps));
+                CollectCardAt(Vector2.Lerp(from, screenPosition, (float)step / steps));
             }
 
-            lastPointerPanelPosition = panelPosition;
+            lastPointerScreenPosition = screenPosition;
             wasPointerHeld = true;
         }
 
         private void OnDisable()
         {
             panelRenderer.UnregisterUIReloadCallback(HandleUIReloaded);
-        }
-
-        public void AddPack()
-        {
-            packCount++;
-            ShowPack();
-        }
-
-        // GameSave restores before the panel has built its UXML; HandleUIReloaded shows the count once it has.
-        public void RestorePacks(int count)
-        {
-            packCount = count;
+            cardPacks.PackCountChanged -= ShowPackCount;
         }
 
         // Runs once the panel has built its UXML (after the first frame) and again on every live reload.
@@ -113,51 +93,57 @@ namespace Chillquarium.Gameplay
             packButton = rootElement.Q<Button>(packButtonName);
             packCountLabel = rootElement.Q<Label>(packCountLabelName);
             cardRow = rootElement.Q<VisualElement>(cardRowName);
-            packButton.clicked += OpenPack;
+            packButton.style.backgroundImage = new StyleBackground(cardPacks.PackType.Art);
 
-            // A reload rebuilds the UXML, so lay out the cards that were showing again.
-            foreach (var species in unclaimedSpecies)
+            // Removing first keeps a reload of the same tree from listening twice.
+            packButton.clicked -= OpenPack;
+            packButton.clicked += OpenPack;
+            cardPacks.PackCountChanged -= ShowPackCount;
+            cardPacks.PackCountChanged += ShowPackCount;
+
+            // Lay out the fish cards from the state, so a reload shows each one exactly once.
+            cardRow.Clear();
+
+            foreach (var species in cardPacks.UnclaimedSpecies)
             {
                 AddCard(species, 0);
             }
 
-            ShowPack();
+            ShowPackCount();
             UpdateLayerPicking();
         }
 
         private void OpenPack()
         {
-            if (packCount == 0)
+            var opened = cardPacks.Open();
+
+            if (opened.Count == 0)
             {
                 return;
             }
 
-            packCount--;
-            ShowPack();
             SqueezeCards();
 
-            for (var index = 0; index < gameplayConfig.FishPerCard; index++)
+            for (var index = 0; index < opened.Count; index++)
             {
-                var species = CardRoll.PickSpecies(gameplayConfig);
-                unclaimedSpecies.Add(species);
-                AddCard(species, index * cardPopStaggerMilliseconds);
+                AddCard(opened[index], index * cardPopStaggerMilliseconds);
             }
 
             soundSource.PlayOneShot(revealSound);
             UpdateLayerPicking();
         }
 
-        private void ShowPack()
+        private void ShowPackCount()
         {
-            packCountLabel.text = "x" + packCount;
-            packButton.EnableInClassList(hiddenClassName, packCount == 0);
+            packCountLabel.text = "x" + cardPacks.PackCount;
+            packButton.EnableInClassList(hiddenClassName, cardPacks.PackCount == 0);
         }
 
-        // While fish cards are out, the full-screen layer takes the pointer: presses on the water do not drop food,
+        // While fish cards are on screen, the full-screen layer takes the pointer: presses on the water do not drop food,
         // and a swipe can start anywhere. It sits under the top bar, so the Shop button still works.
         private void UpdateLayerPicking()
         {
-            packLayer.pickingMode = unclaimedSpecies.Count > 0 ? PickingMode.Position : PickingMode.Ignore;
+            packLayer.pickingMode = cardRow.childCount > 0 ? PickingMode.Position : PickingMode.Ignore;
         }
 
         // The cards already out flinch sideways, as if the new ones push in, then spring back.
@@ -204,6 +190,18 @@ namespace Chillquarium.Gameplay
             frame.pickingMode = PickingMode.Ignore;
             fish.pickingMode = PickingMode.Ignore;
             card.userData = species;
+
+            // Removed once its spin-away ends, so the USS transition alone sets how long that takes.
+            card.RegisterCallback<TransitionEndEvent>(transitionEvent =>
+            {
+                if (transitionEvent.target == card && transitionEvent.stylePropertyNames.Contains(CollectEndProperty))
+                {
+                    card.RemoveFromHierarchy();
+
+                    // Free the water only once the card has gone, so the press that took the last card does not also drop food.
+                    UpdateLayerPicking();
+                }
+            });
             cardRow.Add(card);
 
             // Start with no width, small and low, then let the USS transition grow it in; the wait of at least
@@ -212,35 +210,31 @@ namespace Chillquarium.Gameplay
             card.schedule.Execute(() => card.RemoveFromClassList(cardPopClassName)).StartingIn(popDelayMilliseconds + 16);
         }
 
-        private void CollectCardAt(Vector2 panelPosition)
+        private void CollectCardAt(Vector2 screenPosition)
         {
+            // Input System y counts up from the bottom; panel y counts down from the top.
+            var panelPosition = RuntimePanelUtils.ScreenToPanel(hudRoot.panel, new Vector2(screenPosition.x, Screen.height - screenPosition.y));
+
             // A collected card ignores picking, so it is never found twice.
             var picked = hudRoot.panel.Pick(panelPosition);
 
             if (picked != null && picked.parent == cardRow)
             {
-                CollectCard(picked, (FishSpecies)picked.userData);
+                CollectCard(picked, (FishSpecies)picked.userData, screenPosition);
             }
         }
 
-        private void CollectCard(VisualElement card, FishSpecies species)
+        private void CollectCard(VisualElement card, FishSpecies species, Vector2 screenPosition)
         {
             card.pickingMode = PickingMode.Ignore;
+
+            // The collect class spins the card away and shrinks its width to 0, so the rest slide together and stay centered.
             card.AddToClassList(cardCollectClassName);
-            unclaimedSpecies.Remove(species);
 
-            // The fish swims out where the card was clicked, kept inside the water.
-            var area = swimArea.Area;
-            Vector2 clickPoint = worldCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            var position = new Vector3(Mathf.Clamp(clickPoint.x, area.xMin, area.xMax), Mathf.Clamp(clickPoint.y, area.yMin, area.yMax), 0f);
-            spawner.Spawn(species, 0f, position);
+            // The fish swims out where the pointer passed over its card.
+            Vector2 worldPoint = worldCamera.ScreenToWorldPoint(screenPosition);
+            cardPacks.Collect(species, worldPoint);
             soundSource.PlayOneShot(collectSound);
-
-            // Free the water only after the card has gone; the press that took the last card must not also drop food.
-            packLayer.schedule.Execute(UpdateLayerPicking).StartingIn(collectMilliseconds);
-
-            // The collect class also shrinks the card's width to 0, so the rest slide together and stay centered.
-            card.schedule.Execute(() => card.RemoveFromHierarchy()).StartingIn(collectMilliseconds);
         }
     }
 }

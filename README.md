@@ -55,7 +55,7 @@ Babies earn 1 XP per second and 5 XP per food pellet. A card costs $5 and holds 
 | Folder | Contents |
 |---|---|
 | `Assets/Scripts/` | Game code, one folder per feature |
-| `Assets/Data/` | Fish species and the gameplay config |
+| `Assets/Data/` | Fish species, card pack types and the gameplay config |
 | `Assets/Prefabs/` | Fish and food pellet prefabs |
 | `Assets/Sprites/` | Fish, food, bubble and background sprites |
 | `Assets/UI/` | HUD layout (UXML), style (USS) and panel settings |

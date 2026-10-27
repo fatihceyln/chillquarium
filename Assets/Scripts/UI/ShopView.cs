@@ -11,15 +11,19 @@ namespace Chillquarium.Gameplay
         [SerializeField] private PanelRenderer panelRenderer;
         [SerializeField] private MoneyWallet wallet;
         [SerializeField] private GameplayConfig gameplayConfig;
-        [SerializeField] private CardPackView cardPackView;
+        [SerializeField] private CardPacks cardPacks;
         [SerializeField] private string shopButtonName = "shop-button";
         [SerializeField] private string shopPanelName = "shop-panel";
         [SerializeField] private string shopCloseButtonName = "shop-close-button";
+        [SerializeField] private string cardNameLabelName = "card-name-label";
+        [SerializeField] private string cardArtName = "card-art";
         [SerializeField] private string cardPriceLabelName = "card-price-label";
         [SerializeField] private string cardBuyButtonName = "card-buy-button";
         [SerializeField] private string hiddenClassName = "hidden";
 
         private VisualElement shopPanel;
+        private Button shopButton;
+        private Button shopCloseButton;
         private Button cardBuyButton;
 
         private void OnEnable()
@@ -37,14 +41,20 @@ namespace Chillquarium.Gameplay
         private void HandleUIReloaded(PanelRenderer renderer, VisualElement rootElement, int version)
         {
             shopPanel = rootElement.Q<VisualElement>(shopPanelName);
+            shopButton = rootElement.Q<Button>(shopButtonName);
+            shopCloseButton = rootElement.Q<Button>(shopCloseButtonName);
             cardBuyButton = rootElement.Q<Button>(cardBuyButtonName);
+            rootElement.Q<Label>(cardNameLabelName).text = cardPacks.PackType.DisplayName;
+            rootElement.Q<VisualElement>(cardArtName).style.backgroundImage = new StyleBackground(cardPacks.PackType.Art);
             rootElement.Q<Label>(cardPriceLabelName).text = MoneyFormat.Format(gameplayConfig.CardPrice);
 
-            rootElement.Q<Button>(shopButtonName).clicked += Open;
-            rootElement.Q<Button>(shopCloseButtonName).clicked += Close;
+            // Removing first keeps a reload of the same tree from listening twice.
+            shopButton.clicked -= Open;
+            shopButton.clicked += Open;
+            shopCloseButton.clicked -= Close;
+            shopCloseButton.clicked += Close;
+            cardBuyButton.clicked -= BuyCard;
             cardBuyButton.clicked += BuyCard;
-
-            // Removing first keeps a live reload from listening twice.
             wallet.BalanceChanged -= UpdateBuyButton;
             wallet.BalanceChanged += UpdateBuyButton;
             UpdateBuyButton(wallet.Balance);
@@ -71,7 +81,7 @@ namespace Chillquarium.Gameplay
             }
 
             Close();
-            cardPackView.AddPack();
+            cardPacks.AddPack();
         }
 
         private void UpdateBuyButton(double balance)
