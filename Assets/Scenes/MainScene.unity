@@ -1396,6 +1396,7 @@ MonoBehaviour:
   soundSource: {fileID: 745716885}
   revealSound: {fileID: 8300000, guid: b1d06c00eefb54ba9b295357ba622b77, type: 3}
   collectSound: {fileID: 8300000, guid: 2eee873ba32634af58f9d24c7a0873c9, type: 3}
+  packLayerName: pack-layer
   packButtonName: pack-button
   packCountLabelName: pack-count-label
   cardRowName: card-row

@@ -8,7 +8,7 @@ A small, cozy idle aquarium game made in Unity as a learning project. Buy fish c
 
 ## Features
 
-- **Fish cards:** the shop sells one card, "Freshwater Friends". Bought cards wait at the bottom of the tank. Each click on them opens one and lays out 5 more random fish cards; click each card to send its fish into the tank.
+- **Fish cards:** the shop sells one card, "Freshwater Friends". Bought cards wait at the bottom of the tank. Each click on them opens one and lays out 5 more random fish cards; click each card to send its fish into the tank. No food drops while fish cards are out.
 - **Rarities:** every fish is Common, Rare, Epic or Legendary. Rarer fish drop less often and earn more.
 - **Idle income:** every fish in the tank earns money each second. Babies earn a little, adults earn a lot.
 - **Growing up:** fish earn XP over time and grow from baby to adult as it adds up, then switch to their adult look.

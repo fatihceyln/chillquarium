@@ -1,16 +1,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <Style src="Hud.uss" />
-    <ui:VisualElement name="top-bar" class="top-bar">
-        <ui:Button name="shop-button" text="Shop" class="shop-button" />
-        <ui:VisualElement name="money" class="money">
-            <ui:Label name="money-label" text="$0.00" class="money-label" />
-        </ui:VisualElement>
-    </ui:VisualElement>
     <ui:VisualElement name="pack-layer" class="pack-layer" picking-mode="Ignore">
         <ui:VisualElement name="card-row" class="card-row" picking-mode="Ignore" />
         <ui:Button name="pack-button" class="pack-button hidden">
             <ui:Label name="pack-count-label" text="x0" class="pack-count" picking-mode="Ignore" />
         </ui:Button>
+    </ui:VisualElement>
+    <ui:VisualElement name="top-bar" class="top-bar">
+        <ui:Button name="shop-button" text="Shop" class="shop-button" />
+        <ui:VisualElement name="money" class="money">
+            <ui:Label name="money-label" text="$0.00" class="money-label" />
+        </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="shop-panel" class="shop-overlay hidden" picking-mode="Ignore">
         <ui:VisualElement class="shop-window">

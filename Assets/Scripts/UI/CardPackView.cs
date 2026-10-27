@@ -19,6 +19,7 @@ namespace Chillquarium.Gameplay
         [SerializeField] private AudioSource soundSource;
         [SerializeField] private AudioClip revealSound;
         [SerializeField] private AudioClip collectSound;
+        [SerializeField] private string packLayerName = "pack-layer";
         [SerializeField] private string packButtonName = "pack-button";
         [SerializeField] private string packCountLabelName = "pack-count-label";
         [SerializeField] private string cardRowName = "card-row";
@@ -39,6 +40,7 @@ namespace Chillquarium.Gameplay
         [SerializeField, Min(1)] private int collectMilliseconds = 350;
 
         private readonly List<FishSpecies> unclaimedSpecies = new();
+        private VisualElement packLayer;
         private Button packButton;
         private Label packCountLabel;
         private VisualElement cardRow;
@@ -73,6 +75,7 @@ namespace Chillquarium.Gameplay
         // Runs once the panel has built its UXML (after the first frame) and again on every live reload.
         private void HandleUIReloaded(PanelRenderer renderer, VisualElement rootElement, int version)
         {
+            packLayer = rootElement.Q<VisualElement>(packLayerName);
             packButton = rootElement.Q<Button>(packButtonName);
             packCountLabel = rootElement.Q<Label>(packCountLabelName);
             cardRow = rootElement.Q<VisualElement>(cardRowName);
@@ -85,6 +88,7 @@ namespace Chillquarium.Gameplay
             }
 
             ShowPack();
+            UpdateLayerPicking();
         }
 
         private void OpenPack()
@@ -106,12 +110,20 @@ namespace Chillquarium.Gameplay
             }
 
             soundSource.PlayOneShot(revealSound);
+            UpdateLayerPicking();
         }
 
         private void ShowPack()
         {
             packCountLabel.text = "x" + packCount;
             packButton.EnableInClassList(hiddenClassName, packCount == 0);
+        }
+
+        // While fish cards are out, the full-screen layer takes the pointer: presses on the water do not drop food,
+        // and a swipe can start anywhere. It sits under the top bar, so the Shop button still works.
+        private void UpdateLayerPicking()
+        {
+            packLayer.pickingMode = unclaimedSpecies.Count > 0 ? PickingMode.Position : PickingMode.Ignore;
         }
 
         // The cards already out flinch sideways, as if the new ones push in, then spring back.
@@ -178,6 +190,9 @@ namespace Chillquarium.Gameplay
             var position = new Vector3(Mathf.Clamp(clickPoint.x, area.xMin, area.xMax), Mathf.Clamp(clickPoint.y, area.yMin, area.yMax), 0f);
             spawner.Spawn(species, 0f, position);
             soundSource.PlayOneShot(collectSound);
+
+            // Free the water only after the card has gone; the press that took the last card must not also drop food.
+            packLayer.schedule.Execute(UpdateLayerPicking).StartingIn(collectMilliseconds);
 
             // The collect class also shrinks the card's width to 0, so the rest slide together and stay centered.
             card.schedule.Execute(() => card.RemoveFromHierarchy()).StartingIn(collectMilliseconds);
