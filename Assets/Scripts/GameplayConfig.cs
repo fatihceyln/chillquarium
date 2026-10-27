@@ -14,6 +14,8 @@ namespace Chillquarium.Gameplay
         // Money values have no [Min]: its Inspector drawer may edit them as floats and lose the precision a double keeps.
         [SerializeField] private double startingMoney = 10d;
         [SerializeField] private double cardPrice = 5d;
+        [Tooltip("Fish that come out of one opened card.")]
+        [SerializeField, Min(1)] private int fishPerCard = 5;
         [SerializeField, Min(0.1f)] private float incomeIntervalSeconds = 1f;
 
         [Header("Food")]
@@ -36,6 +38,7 @@ namespace Chillquarium.Gameplay
 
         public double StartingMoney => startingMoney;
         public double CardPrice => cardPrice;
+        public int FishPerCard => fishPerCard;
         public float IncomeIntervalSeconds => incomeIntervalSeconds;
         public float FoodXp => foodXp;
         public FishSpecies StarterSpecies => starterSpecies;

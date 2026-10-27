@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.GameplayConfig
   startingMoney: 10
   cardPrice: 5
+  fishPerCard: 5
   incomeIntervalSeconds: 1
   foodXp: 5
   common:
