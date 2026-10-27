@@ -37,6 +37,8 @@ namespace Chillquarium.Gameplay
         [SerializeField, Min(1)] private int cardSqueezeMilliseconds = 120;
         [Tooltip("Screen pixels between the points checked along a swipe, so a fast swipe does not skip cards.")]
         [SerializeField, Min(1f)] private float swipeSampleSpacing = 40f;
+        [Tooltip("Shortest time between two collected cards while the button is held, so the cards that slide in under the pointer go one by one instead of all at once.")]
+        [SerializeField, Min(0f)] private float collectIntervalSeconds = 0.2f;
 
         // Only the collect state changes rotate, so its end marks the moment a collected card has spun away.
         private static readonly StylePropertyName CollectEndProperty = new("rotate");
@@ -48,6 +50,7 @@ namespace Chillquarium.Gameplay
         private VisualElement cardRow;
         private Vector2 lastPointerScreenPosition;
         private bool wasPointerHeld;
+        private float nextCollectTime;
 
         private void OnEnable()
         {
@@ -212,6 +215,11 @@ namespace Chillquarium.Gameplay
 
         private void CollectCardAt(Vector2 screenPosition)
         {
+            if (Time.time < nextCollectTime)
+            {
+                return;
+            }
+
             // A collected card ignores picking, so it is never found twice.
             var picked = PanelPicking.Pick(hudRoot.panel, screenPosition);
 
@@ -224,6 +232,7 @@ namespace Chillquarium.Gameplay
         private void CollectCard(VisualElement card, FishSpecies species, Vector2 screenPosition)
         {
             card.pickingMode = PickingMode.Ignore;
+            nextCollectTime = Time.time + collectIntervalSeconds;
 
             // The collect class spins the card away and shrinks its width to 0, so the rest slide together and stay centered.
             card.AddToClassList(cardCollectClassName);
