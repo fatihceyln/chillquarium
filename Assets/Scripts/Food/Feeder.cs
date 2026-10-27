@@ -13,6 +13,9 @@ namespace Chillquarium.Gameplay
         [SerializeField] private Camera worldCamera;
         [SerializeField] private SwimArea swimArea;
         [SerializeField] private FoodPellet pelletPrefab;
+        [SerializeField] private AudioSource soundSource;
+        [SerializeField] private AudioClip dropSound;
+        [SerializeField] private AudioClip eatSound;
 
         private readonly List<FoodPellet> pellets = new();
 
@@ -50,6 +53,7 @@ namespace Chillquarium.Gameplay
             pellets.Remove(pellet);
             Destroy(pellet.gameObject);
             fish.Feed(gameplayConfig.FoodGrowthSeconds);
+            soundSource.PlayOneShot(eatSound);
         }
 
         private void DropPellet(Vector2 point)
@@ -66,6 +70,7 @@ namespace Chillquarium.Gameplay
             pellet.Initialize(area.yMin);
             pellet.Expired += HandlePelletExpired;
             pellets.Add(pellet);
+            soundSource.PlayOneShot(dropSound);
         }
 
         private void HandlePelletExpired(FoodPellet pellet)

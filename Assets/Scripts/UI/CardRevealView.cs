@@ -12,14 +12,19 @@ namespace Chillquarium.Gameplay
         [SerializeField] private GameplayConfig gameplayConfig;
         [SerializeField] private FishSpawner spawner;
         [SerializeField] private Feeder feeder;
+        [SerializeField] private AudioSource soundSource;
+        [SerializeField] private AudioClip revealSound;
         [SerializeField] private string revealPanelName = "reveal-panel";
+        [SerializeField] private string revealWindowName = "reveal-window";
         [SerializeField] private string fishNameLabelName = "reveal-fish-name-label";
         [SerializeField] private string rarityLabelName = "reveal-rarity-label";
         [SerializeField] private string fishArtName = "reveal-fish-art";
         [SerializeField] private string confirmButtonName = "reveal-confirm-button";
         [SerializeField] private string hiddenClassName = "hidden";
+        [SerializeField] private string popInClassName = "reveal-window--pop";
 
         private VisualElement revealPanel;
+        private VisualElement revealWindow;
         private Label fishNameLabel;
         private Label rarityLabel;
         private VisualElement fishArt;
@@ -44,6 +49,11 @@ namespace Chillquarium.Gameplay
             fishArt.style.backgroundImage = new StyleBackground(species.AdultSprite);
             revealPanel.RemoveFromClassList(hiddenClassName);
 
+            // Start small and see-through, then let the USS transition grow it in on the next frame.
+            revealWindow.AddToClassList(popInClassName);
+            revealWindow.schedule.Execute(() => revealWindow.RemoveFromClassList(popInClassName));
+            soundSource.PlayOneShot(revealSound);
+
             // The window covers the water, so clicks on it must not drop food.
             feeder.enabled = false;
         }
@@ -52,6 +62,7 @@ namespace Chillquarium.Gameplay
         private void HandleUIReloaded(PanelRenderer renderer, VisualElement rootElement, int version)
         {
             revealPanel = rootElement.Q<VisualElement>(revealPanelName);
+            revealWindow = rootElement.Q<VisualElement>(revealWindowName);
             fishNameLabel = rootElement.Q<Label>(fishNameLabelName);
             rarityLabel = rootElement.Q<Label>(rarityLabelName);
             fishArt = rootElement.Q<VisualElement>(fishArtName);

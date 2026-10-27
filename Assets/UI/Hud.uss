@@ -33,11 +33,37 @@
 }
 
 .money {
+    transition-property: scale;
+    transition-duration: 0.12s;
     padding: 4px 16px;
     border-width: 3px;
     border-color: rgb(89, 186, 169);
     border-radius: 12px;
     background-color: rgb(79, 138, 163);
+}
+
+.money--bump {
+    scale: 1.08 1.08;
+}
+
+.money-gain {
+    position: absolute;
+    left: 16px;
+    top: 100%;
+    margin-top: 4px;
+    font-size: 28px;
+    -unity-font-style: bold;
+    color: rgb(255, 230, 120);
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(11, 31, 42);
+    transition-property: translate, opacity;
+    transition-duration: 0.9s;
+    transition-timing-function: ease-out;
+}
+
+.money-gain--rise {
+    translate: 0 -24px;
+    opacity: 0;
 }
 
 .money-label {
@@ -168,6 +194,9 @@
 }
 
 .reveal-window {
+    transition-property: scale, opacity;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-out-back;
     width: 520px;
     padding: 24px 28px 28px 28px;
     align-items: center;
@@ -175,6 +204,11 @@
     border-color: rgb(87, 142, 172);
     border-radius: 14px;
     background-color: rgba(28, 54, 87, 0.95);
+}
+
+.reveal-window--pop {
+    scale: 0.6 0.6;
+    opacity: 0;
 }
 
 .reveal-title {
