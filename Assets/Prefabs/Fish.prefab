@@ -49,9 +49,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.FishSwimmer
   fish: {fileID: 7477369503094955334}
   visual: {fileID: 173645547126207721}
-  swimSpeed: 1.5
-  driftSpeed: 0.4
+  spriteTransform: {fileID: 9131438924647706752}
+  strokeSpeed: 1.8
   chaseSpeed: 3
+  strokeSpeedVariation: 0.2
+  strokeSeconds: 0.3
+  glideDrag: 1.2
+  nextStrokeSpeedRatio: 0.15
+  turnChance: 0.3
+  maxStrokeAngle: 25
+  edgeMargin: 1
+  strokeSquashWidth: 0.2
+  strokeStretchHeight: 0.25
   eatDistance: 0.25
 --- !u!114 &7477369503094955334
 MonoBehaviour:
@@ -69,7 +78,7 @@ MonoBehaviour:
   swimmer: {fileID: 7255878647998596985}
   sortingGroup: {fileID: 5363759480697325423}
   visual: {fileID: 173645547126207721}
-  spriteRenderer: {fileID: 4893302631652966140}
+  spriteRenderer: {fileID: 3744777128912374516}
   babySize: 0.5
   ageSeconds: 0
 --- !u!210 &5363759480697325423
@@ -94,7 +103,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 173645547126207721}
-  - component: {fileID: 4893302631652966140}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -114,17 +122,50 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 9131438924647706752}
   m_Father: {fileID: 8119590210766141219}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &4893302631652966140
+--- !u!1 &1134483665476095600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9131438924647706752}
+  - component: {fileID: 3744777128912374516}
+  m_Layer: 0
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9131438924647706752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134483665476095600}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 173645547126207721}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &3744777128912374516
 SpriteRenderer:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 829285263686820054}
+  m_GameObject: {fileID: 1134483665476095600}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
