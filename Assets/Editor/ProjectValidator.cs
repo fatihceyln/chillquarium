@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -12,7 +14,8 @@ namespace Chillquarium.EditorTools
     /// <summary>
     /// Finds setup mistakes in scenes, prefabs and data assets before Play Mode:
     /// unassigned or empty Inspector fields on game scripts, missing scripts,
-    /// broken references, prefab overrides in scenes and UI element names that do not exist in the UXML.
+    /// broken references, prefab overrides in scenes, UI element names that do not exist in the UXML
+    /// and USS class names that no stylesheet of that UXML defines.
     /// Run it from Tools > Chillquarium > Validate Project, or from the CLI with
     /// <c>unity command eval "return Chillquarium.EditorTools.ProjectValidator.RunAsText();"</c>.
     /// </summary>
@@ -205,8 +208,10 @@ namespace Chillquarium.EditorTools
         private static void ValidateUiNames(GameObject gameObject, VisualTreeAsset visualTree, string location, List<Issue> issues)
         {
             // Views look elements up by the names in their "...Name" fields; a typo only fails in Play Mode otherwise.
+            // "...ClassName" fields must name a class some stylesheet of the UXML defines; a typo there silently loses the style.
             var root = visualTree.CloneTree();
             var uxmlPath = AssetDatabase.GetAssetPath(visualTree);
+            var styleText = string.Join("\n", visualTree.stylesheets.Select(sheet => File.ReadAllText(AssetDatabase.GetAssetPath(sheet))));
 
             foreach (var view in gameObject.GetComponents<MonoBehaviour>())
             {
@@ -222,10 +227,20 @@ namespace Chillquarium.EditorTools
                 {
                     var fieldName = property.name;
 
-                    if (property.propertyType != SerializedPropertyType.String
-                        || !fieldName.EndsWith("Name")
-                        || fieldName.EndsWith("ClassName"))
+                    if (property.propertyType != SerializedPropertyType.String || !fieldName.EndsWith("Name"))
                     {
+                        continue;
+                    }
+
+                    if (fieldName.EndsWith("ClassName"))
+                    {
+                        // The look-ahead keeps "fish-card" from matching inside "fish-card--pop".
+                        if (!Regex.IsMatch(styleText, @"\." + Regex.Escape(property.stringValue) + @"(?![\w-])"))
+                        {
+                            issues.Add(new Issue(Severity.Error, label,
+                                $"{fieldName} \"{property.stringValue}\" is not a class in the stylesheets of {uxmlPath}."));
+                        }
+
                         continue;
                     }
 
