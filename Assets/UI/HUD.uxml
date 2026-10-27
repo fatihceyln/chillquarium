@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <Style src="Hud.uss" />
+    <Style src="HUD.uss" />
     <ui:VisualElement name="pack-layer" class="pack-layer" picking-mode="Ignore">
         <ui:VisualElement name="card-row" class="card-row" picking-mode="Ignore" />
         <ui:Button name="pack-button" class="pack-button hidden">

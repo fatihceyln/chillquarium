@@ -25,12 +25,12 @@ namespace Chillquarium.Gameplay
         // Awake rather than OnEnable: windows switch the feeder off and on, and the HUD root must survive that.
         private void Awake()
         {
-            hudPanelRenderer.RegisterUIReloadCallback(HandleHudReloaded);
+            hudPanelRenderer.RegisterUIReloadCallback(HandleHUDReloaded);
         }
 
         private void Update()
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame && !IsOverHud(Mouse.current.position.ReadValue()))
+            if (Mouse.current.leftButton.wasPressedThisFrame && !IsOverHUD(Mouse.current.position.ReadValue()))
             {
                 // Vector2 drops the camera's z, so the pellet sits at z = 0 with the fish instead of on the camera plane.
                 Vector2 clickPoint = worldCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -40,7 +40,7 @@ namespace Chillquarium.Gameplay
 
         private void OnDestroy()
         {
-            hudPanelRenderer.UnregisterUIReloadCallback(HandleHudReloaded);
+            hudPanelRenderer.UnregisterUIReloadCallback(HandleHUDReloaded);
         }
 
         public bool TryGetNearestPellet(Vector3 position, out FoodPellet nearest)
@@ -70,13 +70,13 @@ namespace Chillquarium.Gameplay
             soundSource.PlayOneShot(eatSound);
         }
 
-        private void HandleHudReloaded(PanelRenderer renderer, VisualElement rootElement, int version)
+        private void HandleHUDReloaded(PanelRenderer renderer, VisualElement rootElement, int version)
         {
             hudRoot = rootElement;
         }
 
         // Clicks on HUD elements over the water, like the fish cards, must not drop food.
-        private bool IsOverHud(Vector2 screenPosition)
+        private bool IsOverHUD(Vector2 screenPosition)
         {
             // Input System y counts up from the bottom; panel y counts down from the top.
             var panelPosition = RuntimePanelUtils.ScreenToPanel(hudRoot.panel, new Vector2(screenPosition.x, Screen.height - screenPosition.y));
