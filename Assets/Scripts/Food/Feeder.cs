@@ -78,9 +78,7 @@ namespace Chillquarium.Gameplay
         // Clicks on HUD elements over the water, like the fish cards, must not drop food.
         private bool IsOverHUD(Vector2 screenPosition)
         {
-            // Input System y counts up from the bottom; panel y counts down from the top.
-            var panelPosition = RuntimePanelUtils.ScreenToPanel(hudRoot.panel, new Vector2(screenPosition.x, Screen.height - screenPosition.y));
-            var picked = hudRoot.panel.Pick(panelPosition);
+            var picked = PanelPicking.Pick(hudRoot.panel, screenPosition);
 
             // Full-screen layers ignore picking, so only a real element under the pointer counts.
             return picked != null && picked != hudRoot && hudRoot.Contains(picked);

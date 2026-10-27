@@ -212,11 +212,8 @@ namespace Chillquarium.Gameplay
 
         private void CollectCardAt(Vector2 screenPosition)
         {
-            // Input System y counts up from the bottom; panel y counts down from the top.
-            var panelPosition = RuntimePanelUtils.ScreenToPanel(hudRoot.panel, new Vector2(screenPosition.x, Screen.height - screenPosition.y));
-
             // A collected card ignores picking, so it is never found twice.
-            var picked = hudRoot.panel.Pick(panelPosition);
+            var picked = PanelPicking.Pick(hudRoot.panel, screenPosition);
 
             if (picked != null && picked.parent == cardRow)
             {
