@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.FishSpecies
   displayName: Guppy
   rarity: 0
-  placeholderColor: {r: 0.9490196, g: 0.54901963, b: 0.15686275, a: 1}
+  babySprite: {fileID: 21300000, guid: 704c9d22fd76b4071b96978297ca25d2, type: 3}
+  adultSprite: {fileID: 21300000, guid: b36d2e5a1c929453f927c3c650d18212, type: 3}

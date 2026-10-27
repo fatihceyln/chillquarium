@@ -117,12 +117,11 @@
 
 .card-art {
     width: 190px;
-    height: 220px;
+    height: 233px;
     margin: 16px 0;
-    border-width: 4px;
-    border-color: rgb(11, 22, 32);
-    border-radius: 18px;
-    background-color: rgb(35, 159, 221);
+    background-image: url("Images/CardFreshwater.png");
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .card-buy-row {
@@ -213,11 +212,10 @@
 }
 
 .reveal-fish-art {
-    width: 120px;
-    height: 48px;
-    border-width: 3px;
-    border-color: rgb(11, 22, 32);
-    border-radius: 24px;
+    width: 190px;
+    height: 120px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .reveal-confirm-button {

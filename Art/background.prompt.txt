@@ -1,0 +1,11 @@
+# Reference: steam-02.jpg
+Use your image generation tool to create exactly ONE image. Do not run shell commands and do not create, edit or delete any files; only generate the image.
+
+The attached game screenshot is STYLE and LAYOUT REFERENCE ONLY (do not copy its decorations or fish). Create an original, EMPTY aquarium background for a cozy 2D game, landscape 16:9.
+Style: flat bright colors with a subtle chunky pixel texture, soft dark outlines where shapes meet, same look as the reference.
+Layout, from top to bottom:
+- Top 15% of the image: lighter cyan-blue water surface band with a soft wavy, bubbly pattern of rounded blobs, like the reference.
+- Middle (about 63%): calm deep navy-blue water, mostly plain with a very subtle gradient, completely EMPTY so fish can swim there.
+- Bottom 22%: layered sand in horizontal stripes: a coral-pink top layer, then peach, then lavender, then soft blue at the very bottom, with small pebble dots, like the reference.
+Optionally a few small rocks or short plants ONLY at the far left and far right edges, low on the sand. Nothing in the center.
+No fish, no creatures, no bubbles floating in the middle, no UI, no text, no border. Fill the whole image edge to edge.

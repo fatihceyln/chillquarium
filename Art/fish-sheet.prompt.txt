@@ -1,0 +1,20 @@
+# Step 1: generated with steam-02.jpg and neon-tetra-style-test.png as references
+Use your image generation tool to create exactly ONE image. Do not run shell commands and do not create, edit or delete any files; only generate the image.
+
+Style: match the attached neon tetra EXACTLY (same thick dark soft outline, same flat bright colors with a chunky pixel texture inside the shapes, same simple shading, same cute proportions and eye style). The attached game screenshot is STYLE REFERENCE ONLY; do not copy any fish from it. All designs must be original.
+
+Make a sprite sheet on a fully TRANSPARENT background (PNG with alpha). Portrait image 1024x1536.
+Layout: 6 rows. Each row is a separate horizontal band. Every item faces RIGHT, is drawn in side view, and is surrounded by clear empty transparent space: nothing touches, overlaps, or crosses into another row or into the other half of its row. No text, no labels, no grid lines, no shadows, no ground, no background elements.
+
+Rows 1-5: one species per row. LEFT half = the BABY, RIGHT half = the ADULT of the same species. The baby is the same species as the adult but a cute juvenile: rounder and shorter body, bigger eyes, shorter fins, slightly paler colors. Draw the baby about 70% of the adult's size.
+Row 1: Guppy - orange-yellow body, big fan-shaped tail in orange and red with small dark spots.
+Row 2: Neon tetra - like the attached fish: blue glowing stripe along the body, red lower rear half, silvery belly, translucent fins.
+Row 3: Betta - deep crimson red, long flowing veil fins and tail with soft blue edges.
+Row 4: Angelfish - tall triangular silver body with three bold black vertical stripes, long trailing top and bottom fins.
+Row 5: Golden arowana - long sleek body covered in large shiny metallic gold scales, small chin barbels, long rear fins.
+Row 6: LEFT half = one small round fish food pellet (brown-orange, slightly rough). RIGHT half = one round air bubble (light blue outline, mostly see-through inside, a white highlight).
+
+# Step 2: the step-1 image came back with a dark background, so it was edited with this prompt (input: the step-1 image)
+Use your image generation tool to create exactly ONE image. Do not run shell commands and do not create, edit or delete any files; only generate the image.
+
+Edit the attached sprite sheet. Keep every fish, the food pellet and the bubble EXACTLY as they are: same designs, same colors, same sizes, same positions, same outlines. Change ONLY the background: remove the dark gradient background and all glows/halos around the items, and make the background fully TRANSPARENT (PNG with alpha). Each item keeps its thick dark outline and is surrounded by transparent pixels. Output the same portrait size 1024x1536.

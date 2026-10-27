@@ -1,0 +1,7 @@
+Use your image generation tool to create exactly ONE image. Do not run shell commands and do not create, edit or delete any files; only generate the image.
+
+The attached screenshots are STYLE REFERENCE ONLY (do not copy any specific fish design): a cozy 2D aquarium game. Fish are drawn in side view with a thick, dark, slightly soft outline, flat bright colors with a subtle chunky pixel texture inside the shapes, simple shading, cute and readable at small size.
+
+Subject: ONE original adult neon tetra fish in that style, full body, side view, facing RIGHT, centered, filling about 80% of the image width. Blue iridescent stripe along the body, red lower half toward the tail, translucent fins.
+Background: fully transparent (PNG with alpha). No shadow, no ground, no bubbles, no text, no border.
+Size: square 1024x1024.

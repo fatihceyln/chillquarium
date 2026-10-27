@@ -41,7 +41,7 @@ namespace Chillquarium.Gameplay
             fishNameLabel.text = species.DisplayName;
             rarityLabel.text = species.Rarity.ToString();
             rarityLabel.style.color = gameplayConfig.GetTier(species.Rarity).DisplayColor;
-            fishArt.style.backgroundColor = species.PlaceholderColor;
+            fishArt.style.backgroundImage = new StyleBackground(species.AdultSprite);
             revealPanel.RemoveFromClassList(hiddenClassName);
 
             // The window covers the water, so clicks on it must not drop food.

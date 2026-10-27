@@ -10,11 +10,12 @@ namespace Chillquarium.Gameplay
     {
         [SerializeField] private string displayName;
         [SerializeField] private FishRarity rarity;
-        [Tooltip("Body color of the placeholder fish until the real fish art arrives.")]
-        [SerializeField] private Color placeholderColor = Color.white;
+        [SerializeField] private Sprite babySprite;
+        [SerializeField] private Sprite adultSprite;
 
         public string DisplayName => displayName;
         public FishRarity Rarity => rarity;
-        public Color PlaceholderColor => placeholderColor;
+        public Sprite BabySprite => babySprite;
+        public Sprite AdultSprite => adultSprite;
     }
 }

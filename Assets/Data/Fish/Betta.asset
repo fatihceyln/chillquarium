@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.FishSpecies
   displayName: Betta
   rarity: 1
-  placeholderColor: {r: 0.8392157, g: 0.22745098, b: 0.2901961, a: 1}
+  babySprite: {fileID: 21300000, guid: 934b16f819cab4404ba55d3170a3e8ce, type: 3}
+  adultSprite: {fileID: 21300000, guid: 4324da80918fe443cbf698cadd5d88d4, type: 3}

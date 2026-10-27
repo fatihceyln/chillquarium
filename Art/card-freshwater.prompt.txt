@@ -1,0 +1,7 @@
+# References: steam-03.jpg and neon-tetra-style-test.png
+Use your image generation tool to create exactly ONE image. Do not run shell commands and do not create, edit or delete any files; only generate the image.
+
+The attached game screenshot (a shop with fish pack cards) and the attached neon tetra are STYLE REFERENCE ONLY. Create an original fish pack card icon for a cozy 2D aquarium game.
+The card: one upright rounded-corner tile, slightly taller than wide (about 6:7), thick dark outline, bright aqua-blue water fill with lighter turquoise round bubbles of different sizes, a slightly darker blue edge at the bottom and left like a thick 3D tile. In the center, one small neon tetra in the same style as the attached fish, facing right.
+Background around the card: fully TRANSPARENT (PNG with alpha). The card is centered and fills about 85% of the image height. No text, no price, no shadow.
+Square image 1024x1024.

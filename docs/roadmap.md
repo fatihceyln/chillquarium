@@ -20,5 +20,5 @@ Referans oyunun görsel stiliyle aynı. Tam pixel art değil: balık ve dekorlar
 - [x] **10. Kart açma:** nadirlik olasılıklarına göre rastgele bir balık çıkar. Basit bir açılış ekranından sonra balık baby olarak akvaryuma eklenir.
 - [x] **11. Kayıt:** para, balıklar ve büyüme durumu saklanır. Oyun kapatılıp açılınca kaldığı yerden devam eder.
 - [ ] **12. Denge:** fiyatlar, gelirler, büyüme süreleri ve nadirlik oranları tek bir ayar dosyasında toplanır, oynanarak ayarlanır.
-- [ ] **13. Görseller:** referans stilde balık türleri (baby ve adult), akvaryum arka planı ve UI, Codex CLI ile üretilir.
+- [x] **13. Görseller:** referans stilde balık türleri (baby ve adult), akvaryum arka planı ve UI, Codex CLI ile üretilir.
 - [ ] **14. Cila:** baloncuklar, para çıkış animasyonu, ses gibi küçük dokunuşlar.

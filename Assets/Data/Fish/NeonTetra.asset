@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.FishSpecies
   displayName: Neon Tetra
   rarity: 0
-  placeholderColor: {r: 0.18431373, g: 0.65882355, b: 0.8784314, a: 1}
+  babySprite: {fileID: 21300000, guid: 8262788cc606b40488cddca5f56ec9df, type: 3}
+  adultSprite: {fileID: 21300000, guid: def43c7e55b25458082a6d14f8bea56e, type: 3}

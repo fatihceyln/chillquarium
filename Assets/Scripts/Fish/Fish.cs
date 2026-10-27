@@ -4,7 +4,8 @@ using UnityEngine.Rendering;
 namespace Chillquarium.Gameplay
 {
     /// <summary>
-    /// A fish in the tank. Grows from a small, pale baby into a full-size adult over its species' growth time.
+    /// A fish in the tank. Grows from a small baby into a full-size adult over its species' growth time,
+    /// then switches from the species' baby sprite to its adult sprite.
     /// Fish are spawned from a prefab, so FishSpawner hands each one its species and the scene objects it needs.
     /// </summary>
     public sealed class Fish : MonoBehaviour
@@ -13,12 +14,8 @@ namespace Chillquarium.Gameplay
         [SerializeField] private FishSwimmer swimmer;
         [SerializeField] private SortingGroup sortingGroup;
         [SerializeField] private Transform visual;
-        [SerializeField] private SpriteRenderer body;
-        [SerializeField] private SpriteRenderer tail;
-        [SerializeField, Range(0f, 1f)] private float tailShade = 0.15f;
+        [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField, Min(0.01f)] private float babySize = 0.5f;
-        [Tooltip("How much lighter a newborn's placeholder color is than an adult's.")]
-        [SerializeField, Range(0f, 1f)] private float babyPaleness = 0.4f;
         [Tooltip("Seconds this fish has grown. Raise it during Play to fast-forward growth.")]
         [SerializeField, Min(0f)] private float ageSeconds;
 
@@ -70,9 +67,7 @@ namespace Chillquarium.Gameplay
             var scale = visual.localScale;
             visual.localScale = new Vector3(Mathf.Sign(scale.x) * size, size, scale.z);
 
-            var color = Color.Lerp(species.PlaceholderColor, Color.white, babyPaleness * (1f - growth));
-            body.color = color;
-            tail.color = Color.Lerp(color, Color.black, tailShade);
+            spriteRenderer.sprite = IsAdult ? species.AdultSprite : species.BabySprite;
         }
     }
 }
