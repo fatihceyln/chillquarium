@@ -8,11 +8,11 @@ A small, cozy idle aquarium game made in Unity as a learning project. Buy fish c
 
 ## Features
 
-- **Fish cards:** the shop sells one card, "Freshwater Friends", one at a time or 5 at once. Bought cards wait at the bottom of the tank. Each click on them opens one and lays out 5 more random fish cards; click a card, or hold and swipe across several, to send their fish into the tank. No food drops while fish cards are out.
+- **Fish cards:** the shop sells one card, "Freshwater Friends", one at a time or 5 at once. Bought cards wait at the bottom of the tank. Each click on them opens one and lays out 5 more random fish cards, which pop in while the cards already out squeeze aside. Click a card, or hold and swipe across the row, to send their fish into the tank; while you hold, the row keeps sliding toward the pointer and its cards are collected one after another. No food drops while fish cards are out.
 - **Rarities:** every fish is Common, Rare, Epic or Legendary. Rarer fish drop less often and earn more.
 - **Idle income:** every fish in the tank earns money each second. Babies earn a little, adults earn a lot.
-- **Growing up:** fish earn XP over time and grow from baby to adult as it adds up, then switch to their adult look.
-- **Feeding:** click in the water to drop food. Hungry babies chase the nearest pellet, and every bite gives them extra XP.
+- **Growing up:** fish earn XP over time. Babies stay small until their XP adds up, then grow into full-size adults with a new look.
+- **Feeding:** click in the water to drop food, or hold the button to keep dropping it. Hungry babies chase the nearest pellet, and every bite gives them extra XP.
 - **Stroke swimming:** fish swim like real fish. They push off in a stroke, squeeze and stretch, glide, slow down and stroke again in a new direction.
 - **Saving:** money and fish are saved automatically, so the tank is waiting for you when you come back.
 - **Polish:** rising bubbles, a bouncing money counter with floating "+$" labels, fish cards that pop in and spin away, and small sound effects.
@@ -37,8 +37,8 @@ Babies earn 1 XP per second and 5 XP per food pellet. A card costs $5 and holds 
 
 1. Open the project in **Unity 6000.6.0f1** (macOS).
 2. Open `Assets/Scenes/MainScene.unity` and press **Play**.
-3. You start with one Guppy and $10. Click **Shop**, then **Buy**. Click the card at the bottom of the tank to open it, then click each fish card.
-4. Click in the water to feed the babies.
+3. You start with one Guppy and $10. Click **Shop**, then **Buy** (or **Buy x5**). Click the card at the bottom of the tank to open it, then click each fish card or swipe across them.
+4. Click or hold in the water to feed the babies.
 5. To start over, use **Tools > Chillquarium > Delete Save** (outside Play Mode).
 
 ## How it was made
