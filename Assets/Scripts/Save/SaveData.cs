@@ -11,6 +11,8 @@ namespace Chillquarium.Gameplay
         // Bought cards not opened yet.
         public int packs;
         public List<FishSaveData> fishes = new();
+        // Species asset names whose adult the player has seen.
+        public List<string> discovered = new();
     }
 
     [Serializable]

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -20,6 +21,10 @@ namespace Chillquarium.Gameplay
         [SerializeField, Min(0f)] private float xp;
 
         private FishSpecies species;
+        private bool wasAdult;
+
+        // Raised once, when this fish grows into an adult; a fish that starts as an adult never raises it.
+        public event Action<Fish> GrewUp;
 
         public FishSpecies Species => species;
         public float XP => xp;
@@ -48,6 +53,7 @@ namespace Chillquarium.Gameplay
             // Each fish draws on its own layer, so overlapping fish do not mix their parts or flicker.
             sortingGroup.sortingOrder = drawOrder;
             swimmer.Initialize(swimArea, feeder);
+            wasAdult = IsAdult;
             ApplyGrowth();
         }
 
@@ -66,6 +72,12 @@ namespace Chillquarium.Gameplay
             visual.localScale = new Vector3(Mathf.Sign(scale.x) * size, size, scale.z);
 
             spriteRenderer.sprite = IsAdult ? species.AdultSprite : species.BabySprite;
+
+            if (IsAdult && !wasAdult)
+            {
+                wasAdult = true;
+                GrewUp?.Invoke(this);
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Chillquarium.Gameplay
 {
@@ -14,6 +16,9 @@ namespace Chillquarium.Gameplay
         [SerializeField] private Feeder feeder;
 
         private readonly List<Fish> fishes = new();
+
+        // Any fish in the tank growing into an adult, so listeners need not follow each fish.
+        public event Action<Fish> FishGrewUp;
 
         public IReadOnlyList<Fish> Fishes => fishes;
 
@@ -33,6 +38,12 @@ namespace Chillquarium.Gameplay
             // The list length doubles as a unique draw order for the new fish.
             fish.Initialize(species, xp, swimArea, feeder, fishes.Count);
             fishes.Add(fish);
+            fish.GrewUp += HandleFishGrewUp;
+        }
+
+        private void HandleFishGrewUp(Fish fish)
+        {
+            FishGrewUp?.Invoke(fish);
         }
     }
 }

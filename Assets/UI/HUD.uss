@@ -360,3 +360,69 @@
     background-size: contain;
     background-repeat: no-repeat;
 }
+
+/* The window shown when a species grows its first adult. It sits last in the UXML, so it draws over the shop. */
+.discovery-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+.discovery-window {
+    width: 560px;
+    padding: 28px 24px 32px 24px;
+    align-items: center;
+    border-width: 3px;
+    border-color: rgb(87, 142, 172);
+    border-radius: 14px;
+    background-color: rgba(28, 54, 87, 0.92);
+    scale: 0.6 0.6;
+    opacity: 0;
+    transition-property: scale, opacity;
+    transition-duration: 0.35s;
+    transition-timing-function: ease-out-back, ease-out;
+}
+
+.discovery-window.discovery-window--open {
+    scale: 1 1;
+    opacity: 1;
+}
+
+.discovery-title {
+    margin: 0 0 12px 0;
+    font-size: 40px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+}
+
+.discovery-fish {
+    width: 360px;
+    height: 220px;
+    margin: 8px 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.discovery-name {
+    margin: 0;
+    font-size: 36px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+}
+
+.discovery-rarity {
+    margin: 0 0 20px 0;
+    font-size: 28px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(11, 31, 42);
+}
+
+.discovery-ok-button {
+    min-width: 140px;
+}

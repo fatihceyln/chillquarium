@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Chillquarium.Gameplay
 {
     /// <summary>
-    /// Saves the money, the fish and the unopened cards to a JSON file and restores them when the game starts.
+    /// Saves the money, the fish, the unopened cards and the discovered species to a JSON file and restores them when the game starts.
     /// Without a save file the game is new and starts with the starting money and the starter fish.
     /// </summary>
     public sealed class GameSave : MonoBehaviour
@@ -13,6 +13,7 @@ namespace Chillquarium.Gameplay
         [SerializeField] private MoneyWallet wallet;
         [SerializeField] private FishSpawner spawner;
         [SerializeField] private CardPacks cardPacks;
+        [SerializeField] private FishDiscoveries discoveries;
         [SerializeField, Min(1f)] private float autosaveIntervalSeconds = 5f;
 
         private float timeSinceLastSave;
@@ -70,6 +71,11 @@ namespace Chillquarium.Gameplay
                 data.fishes.Add(new FishSaveData { species = species.name, xp = 0f });
             }
 
+            foreach (var species in discoveries.DiscoveredSpecies)
+            {
+                data.discovered.Add(species.name);
+            }
+
             return data;
         }
 
@@ -87,6 +93,23 @@ namespace Chillquarium.Gameplay
                 else
                 {
                     Debug.LogWarning($"The save has a fish of unknown species \"{savedFish.species}\". It was skipped.");
+                }
+            }
+
+            foreach (var speciesName in data.discovered)
+            {
+                if (TryFindSpecies(speciesName, out var species))
+                {
+                    discoveries.Restore(species);
+                }
+            }
+
+            // Adults already in the tank count as seen, so an older save without the list does not show them all at once.
+            foreach (var fish in spawner.Fishes)
+            {
+                if (fish.IsAdult)
+                {
+                    discoveries.Restore(fish.Species);
                 }
             }
         }

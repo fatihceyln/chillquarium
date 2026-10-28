@@ -30,4 +30,13 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="discovery-panel" class="discovery-overlay hidden">
+        <ui:VisualElement name="discovery-window" class="discovery-window">
+            <ui:Label text="New fish discovered!" class="discovery-title" />
+            <ui:VisualElement name="discovery-fish" class="discovery-fish" />
+            <ui:Label name="discovery-name-label" text="Fish" class="discovery-name" />
+            <ui:Label name="discovery-rarity-label" text="Common" class="discovery-rarity" />
+            <ui:Button name="discovery-ok-button" text="OK" class="card-buy-button discovery-ok-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

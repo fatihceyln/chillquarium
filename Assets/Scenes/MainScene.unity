@@ -199,6 +199,7 @@ MonoBehaviour:
   wallet: {fileID: 1325317292}
   spawner: {fileID: 185899888}
   cardPacks: {fileID: 1454920972}
+  discoveries: {fileID: 1196785190}
   autosaveIntervalSeconds: 5
 --- !u!4 &258883857
 Transform:
@@ -641,6 +642,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1196785189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1196785191}
+  - component: {fileID: 1196785190}
+  m_Layer: 0
+  m_Name: Discoveries
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1196785190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196785189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda165ca42bb84ffeba7f8dff0c3e613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.FishDiscoveries
+  spawner: {fileID: 185899888}
+--- !u!4 &1196785191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196785189}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1243598992
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,6 +746,7 @@ GameObject:
   - component: {fileID: 1270696060}
   - component: {fileID: 1270696063}
   - component: {fileID: 1270696064}
+  - component: {fileID: 1270696065}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -869,6 +916,31 @@ MonoBehaviour:
   hitDebugDotClassName: hit-debug-dot
   hitDebugDotCollectClassName: hit-debug-dot--collect
   hitDebugDotWaitClassName: hit-debug-dot--wait
+--- !u!114 &1270696065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270696059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 538a4ad1edab44441a3295594cf45858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Chillquarium.Gameplay.DiscoveryView
+  panelRenderer: {fileID: 1270696061}
+  gameplayConfig: {fileID: 11400000, guid: 980d9132cbbfc43568bc782652739600, type: 2}
+  discoveries: {fileID: 1196785190}
+  soundSource: {fileID: 745716885}
+  revealSound: {fileID: 8300000, guid: b1d06c00eefb54ba9b295357ba622b77, type: 3}
+  discoveryPanelName: discovery-panel
+  discoveryWindowName: discovery-window
+  discoveryFishName: discovery-fish
+  discoveryNameLabelName: discovery-name-label
+  discoveryRarityLabelName: discovery-rarity-label
+  discoveryOkButtonName: discovery-ok-button
+  hiddenClassName: hidden
+  discoveryWindowOpenClassName: discovery-window--open
 --- !u!1 &1325317291
 GameObject:
   m_ObjectHideFlags: 0
@@ -3446,3 +3518,4 @@ SceneRoots:
   - {fileID: 258883857}
   - {fileID: 745716886}
   - {fileID: 1454920973}
+  - {fileID: 1196785191}
