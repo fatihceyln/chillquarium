@@ -1,0 +1,22 @@
+# Reference: docs/references/baby-style.png (baby fish icons from the reference game). An earlier prompt that also passed Art/fish-sheet.png gave fish that were too detailed and clean.
+Use your image generation tool to create exactly ONE image. Do not run shell commands and do not create, edit or delete any files; only generate the image.
+
+The attached image shows two tiny BABY fish icons from a cozy 2D aquarium game (ignore the brown tiles behind them). Copy THIS EXACT LOOK closely for 5 new baby fish:
+- They are vague, blobby little silhouettes, NOT detailed fish. The shape reads as "a small fish" only roughly.
+- Body, fins and tail are merged into ONE lumpy rounded blob; fins are just small bumps or notches on the outline, no separate fin shapes, no fin rays, no spines.
+- Very thick, dark, soft rounded outline that is uneven and wobbly, like a tiny low-resolution sprite scaled up with soft blurry edges.
+- Inside: only 2-3 big flat blotchy color patches (pale white-lavender, light grey-blue, a darker blue-grey), irregular and smudgy, chunky pixel texture. No clean lines, no highlights, no scales.
+- The eye is just a small dark hole/blob, not a cartoon eye. No mouth, no gill line.
+- One vague smudge of an accent color per fish, like the tan stripe and the cyan rim in the reference.
+
+Make a sprite sheet on a fully TRANSPARENT background (PNG with alpha). Portrait image 1024x1536.
+Layout: ONE column, 5 rows, one fish per row, centered in its band, with lots of empty transparent space around each; nothing touches. Every fish faces RIGHT. Each fish about 40% of the image width.
+
+Rows, top to bottom (only the rough outline differs per species):
+Row 1: Guppy fry - small oval blob with a short wide tail lump; accent smudge: orange on the tail.
+Row 2: Neon tetra fry - small slim oval blob; accent smudge: cyan along the side, like the reference's cyan rim.
+Row 3: Betta fry - oval blob with a slightly bigger soft tail lump; accent smudge: dull red on the tail.
+Row 4: Angelfish fry - tall rounded diamond blob, like the lower reference fish; accent smudge: dark grey band.
+Row 5: Golden arowana fry - long thin blob; accent smudge: tan-gold stripe, like the upper reference fish.
+
+No text, no labels, no tiles, no shadows, no glow, no background.
